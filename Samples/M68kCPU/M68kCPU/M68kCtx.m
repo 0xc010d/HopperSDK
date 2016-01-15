@@ -36,18 +36,6 @@
 
 // Analysis
 
-- (BOOL)displacementIsAnArgument:(int64_t)displacement forProcedure:(NSObject<HPProcedure> *)procedure {
-    return NO;
-}
-
-- (NSUInteger)stackArgumentSlotForDisplacement:(int64_t)displacement inProcedure:(NSObject<HPProcedure> *)procedure {
-    return -1;
-}
-
-- (int64_t)displacementForStackSlotIndex:(NSUInteger)slot inProcedure:(NSObject<HPProcedure> *)procedure {
-    return 0;
-}
-
 - (Address)adjustCodeAddress:(Address)address {
     // Instructions are always aligned to a multiple of 2.
     return address & ~1;
@@ -90,6 +78,10 @@
 
 - (void)procedureAnalysisOfPrologForProcedure:(NSObject<HPProcedure> *)procedure atEntryPoint:(Address)entryPoint {
 
+}
+
+- (void)procedureAnalysisOfEpilogForProcedure:(NSObject<HPProcedure> *)procedure atEntryPoint:(Address)entryPoint {
+    
 }
 
 - (void)procedureAnalysisEndedForProcedure:(NSObject<HPProcedure> *)procedure atEntryPoint:(Address)entryPoint {
@@ -274,10 +266,6 @@ uint16_t memory_read_callback(uint32_t address, void* private) {
 }
 
 // Printing
-
-- (NSString *)defaultFormattedVariableNameForDisplacement:(int64_t)displacement inProcedure:(NSObject<HPProcedure> *)procedure {
-    return [NSString stringWithFormat:@"var%lld", displacement];
-}
 
 - (void)buildInstructionString:(DisasmStruct *)disasm forSegment:(NSObject<HPSegment> *)segment populatingInfo:(NSObject<HPFormattedInstructionInfo> *)formattedInstructionInfo {
     const char *spaces = "                ";
