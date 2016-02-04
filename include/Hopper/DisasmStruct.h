@@ -179,7 +179,9 @@ typedef enum {
     DISASM_INST_COND_GE,
     DISASM_INST_COND_LT,
     DISASM_INST_COND_GT,
-    DISASM_INST_COND_LE
+    DISASM_INST_COND_LE,
+
+    DISASM_INST_COND_NEVER
 } DisasmCondition;
 
 typedef enum {
