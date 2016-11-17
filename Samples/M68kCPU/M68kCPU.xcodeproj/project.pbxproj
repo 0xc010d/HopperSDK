@@ -7,14 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07ABE1FE1DC3B3B3000AC50D /* M68KDisassembler.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDF4B1DC3B3B3000AC50D /* M68KDisassembler.c */; };
+		07ABE1FF1DC3B3B3000AC50D /* M68KInstPrinter.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDF4D1DC3B3B3000AC50D /* M68KInstPrinter.c */; };
+		07ABE2001DC3B3B3000AC50D /* M68KModule.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABDF4F1DC3B3B3000AC50D /* M68KModule.c */; };
+		07ABE2C61DC3B3B3000AC50D /* cs.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE0411DC3B3B3000AC50D /* cs.c */; };
+		07ABE2CF1DC3B3B4000AC50D /* MCInst.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE0601DC3B3B3000AC50D /* MCInst.c */; };
+		07ABE2D01DC3B3B4000AC50D /* MCInstrDesc.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE0621DC3B3B3000AC50D /* MCInstrDesc.c */; };
+		07ABE2D11DC3B3B4000AC50D /* MCRegisterInfo.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE0641DC3B3B3000AC50D /* MCRegisterInfo.c */; };
+		07ABE2F31DC3B3B4000AC50D /* SStream.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE0A41DC3B3B3000AC50D /* SStream.c */; };
+		07ABE4151DC3B3B4000AC50D /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 07ABE1D81DC3B3B3000AC50D /* utils.c */; };
 		07F966D818C5BA1200B394AF /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F966D718C5BA1200B394AF /* CoreFoundation.framework */; };
 		07F966DE18C5BA1200B394AF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07F966DC18C5BA1200B394AF /* InfoPlist.strings */; };
 		07F966E718C5BA6500B394AF /* M68kCPU.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F966E618C5BA6500B394AF /* M68kCPU.m */; };
 		07F966EB18C5BAFE00B394AF /* M68kCtx.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F966EA18C5BAFE00B394AF /* M68kCtx.m */; };
-		07F966F218C5CD3C00B394AF /* desa68.c in Sources */ = {isa = PBXBuildFile; fileRef = 07F966F018C5CD3C00B394AF /* desa68.c */; settings = {COMPILER_FLAGS = "-Wno-multichar -Wno-empty-body"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07ABDF4B1DC3B3B3000AC50D /* M68KDisassembler.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = M68KDisassembler.c; sourceTree = "<group>"; };
+		07ABDF4C1DC3B3B3000AC50D /* M68KDisassembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M68KDisassembler.h; sourceTree = "<group>"; };
+		07ABDF4D1DC3B3B3000AC50D /* M68KInstPrinter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = M68KInstPrinter.c; sourceTree = "<group>"; };
+		07ABDF4E1DC3B3B3000AC50D /* M68KInstPrinter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M68KInstPrinter.h; sourceTree = "<group>"; };
+		07ABDF4F1DC3B3B3000AC50D /* M68KModule.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = M68KModule.c; sourceTree = "<group>"; };
+		07ABE0411DC3B3B3000AC50D /* cs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cs.c; sourceTree = "<group>"; };
+		07ABE0421DC3B3B3000AC50D /* cs_priv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_priv.h; sourceTree = "<group>"; };
+		07ABE04A1DC3B3B3000AC50D /* arm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arm.h; sourceTree = "<group>"; };
+		07ABE04B1DC3B3B3000AC50D /* arm64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arm64.h; sourceTree = "<group>"; };
+		07ABE04C1DC3B3B3000AC50D /* capstone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = capstone.h; sourceTree = "<group>"; };
+		07ABE04D1DC3B3B3000AC50D /* m68k.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = m68k.h; sourceTree = "<group>"; };
+		07ABE04E1DC3B3B3000AC50D /* mips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mips.h; sourceTree = "<group>"; };
+		07ABE04F1DC3B3B3000AC50D /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		07ABE0501DC3B3B3000AC50D /* ppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ppc.h; sourceTree = "<group>"; };
+		07ABE0511DC3B3B3000AC50D /* sparc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sparc.h; sourceTree = "<group>"; };
+		07ABE0521DC3B3B3000AC50D /* systemz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = systemz.h; sourceTree = "<group>"; };
+		07ABE0531DC3B3B3000AC50D /* x86.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = x86.h; sourceTree = "<group>"; };
+		07ABE0541DC3B3B3000AC50D /* xcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xcore.h; sourceTree = "<group>"; };
+		07ABE0561DC3B3B3000AC50D /* intrin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = intrin.h; sourceTree = "<group>"; };
+		07ABE0571DC3B3B3000AC50D /* stdint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdint.h; sourceTree = "<group>"; };
+		07ABE0581DC3B3B3000AC50D /* LEB128.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LEB128.h; sourceTree = "<group>"; };
+		07ABE05D1DC3B3B3000AC50D /* MathExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MathExtras.h; sourceTree = "<group>"; };
+		07ABE05E1DC3B3B3000AC50D /* MCDisassembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCDisassembler.h; sourceTree = "<group>"; };
+		07ABE05F1DC3B3B3000AC50D /* MCFixedLenDisassembler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCFixedLenDisassembler.h; sourceTree = "<group>"; };
+		07ABE0601DC3B3B3000AC50D /* MCInst.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MCInst.c; sourceTree = "<group>"; };
+		07ABE0611DC3B3B3000AC50D /* MCInst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCInst.h; sourceTree = "<group>"; };
+		07ABE0621DC3B3B3000AC50D /* MCInstrDesc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MCInstrDesc.c; sourceTree = "<group>"; };
+		07ABE0631DC3B3B3000AC50D /* MCInstrDesc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCInstrDesc.h; sourceTree = "<group>"; };
+		07ABE0641DC3B3B3000AC50D /* MCRegisterInfo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = MCRegisterInfo.c; sourceTree = "<group>"; };
+		07ABE0651DC3B3B3000AC50D /* MCRegisterInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCRegisterInfo.h; sourceTree = "<group>"; };
+		07ABE0891DC3B3B3000AC50D /* myinttypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myinttypes.h; sourceTree = "<group>"; };
+		07ABE0A41DC3B3B3000AC50D /* SStream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = SStream.c; sourceTree = "<group>"; };
+		07ABE0A51DC3B3B3000AC50D /* SStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SStream.h; sourceTree = "<group>"; };
+		07ABE1D81DC3B3B3000AC50D /* utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = utils.c; sourceTree = "<group>"; };
+		07ABE1D91DC3B3B3000AC50D /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 		07F966D418C5BA1200B394AF /* M68kCPU.hopperCPU */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = M68kCPU.hopperCPU; sourceTree = BUILT_PRODUCTS_DIR; };
 		07F966D718C5BA1200B394AF /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		07F966DB18C5BA1200B394AF /* M68kCPU-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "M68kCPU-Info.plist"; sourceTree = "<group>"; };
@@ -24,8 +67,6 @@
 		07F966E618C5BA6500B394AF /* M68kCPU.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M68kCPU.m; sourceTree = "<group>"; };
 		07F966E918C5BAFE00B394AF /* M68kCtx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = M68kCtx.h; sourceTree = "<group>"; };
 		07F966EA18C5BAFE00B394AF /* M68kCtx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = M68kCtx.m; sourceTree = "<group>"; };
-		07F966F018C5CD3C00B394AF /* desa68.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = desa68.c; sourceTree = "<group>"; };
-		07F966F118C5CD3C00B394AF /* desa68.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = desa68.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +81,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07ABDF241DC3B3B3000AC50D /* Capstone */ = {
+			isa = PBXGroup;
+			children = (
+				07ABDF251DC3B3B3000AC50D /* arch */,
+				07ABE0481DC3B3B3000AC50D /* include */,
+				07ABE0411DC3B3B3000AC50D /* cs.c */,
+				07ABE0421DC3B3B3000AC50D /* cs_priv.h */,
+				07ABE0581DC3B3B3000AC50D /* LEB128.h */,
+				07ABE05D1DC3B3B3000AC50D /* MathExtras.h */,
+				07ABE05E1DC3B3B3000AC50D /* MCDisassembler.h */,
+				07ABE05F1DC3B3B3000AC50D /* MCFixedLenDisassembler.h */,
+				07ABE0601DC3B3B3000AC50D /* MCInst.c */,
+				07ABE0611DC3B3B3000AC50D /* MCInst.h */,
+				07ABE0621DC3B3B3000AC50D /* MCInstrDesc.c */,
+				07ABE0631DC3B3B3000AC50D /* MCInstrDesc.h */,
+				07ABE0641DC3B3B3000AC50D /* MCRegisterInfo.c */,
+				07ABE0651DC3B3B3000AC50D /* MCRegisterInfo.h */,
+				07ABE0891DC3B3B3000AC50D /* myinttypes.h */,
+				07ABE0A41DC3B3B3000AC50D /* SStream.c */,
+				07ABE0A51DC3B3B3000AC50D /* SStream.h */,
+				07ABE1D81DC3B3B3000AC50D /* utils.c */,
+				07ABE1D91DC3B3B3000AC50D /* utils.h */,
+			);
+			path = Capstone;
+			sourceTree = "<group>";
+		};
+		07ABDF251DC3B3B3000AC50D /* arch */ = {
+			isa = PBXGroup;
+			children = (
+				07ABDF4A1DC3B3B3000AC50D /* M68K */,
+			);
+			path = arch;
+			sourceTree = "<group>";
+		};
+		07ABDF4A1DC3B3B3000AC50D /* M68K */ = {
+			isa = PBXGroup;
+			children = (
+				07ABDF4B1DC3B3B3000AC50D /* M68KDisassembler.c */,
+				07ABDF4C1DC3B3B3000AC50D /* M68KDisassembler.h */,
+				07ABDF4D1DC3B3B3000AC50D /* M68KInstPrinter.c */,
+				07ABDF4E1DC3B3B3000AC50D /* M68KInstPrinter.h */,
+				07ABDF4F1DC3B3B3000AC50D /* M68KModule.c */,
+			);
+			path = M68K;
+			sourceTree = "<group>";
+		};
+		07ABE0481DC3B3B3000AC50D /* include */ = {
+			isa = PBXGroup;
+			children = (
+				07ABE0491DC3B3B3000AC50D /* capstone */,
+				07ABE0551DC3B3B3000AC50D /* windowsce */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		07ABE0491DC3B3B3000AC50D /* capstone */ = {
+			isa = PBXGroup;
+			children = (
+				07ABE04A1DC3B3B3000AC50D /* arm.h */,
+				07ABE04B1DC3B3B3000AC50D /* arm64.h */,
+				07ABE04C1DC3B3B3000AC50D /* capstone.h */,
+				07ABE04D1DC3B3B3000AC50D /* m68k.h */,
+				07ABE04E1DC3B3B3000AC50D /* mips.h */,
+				07ABE04F1DC3B3B3000AC50D /* platform.h */,
+				07ABE0501DC3B3B3000AC50D /* ppc.h */,
+				07ABE0511DC3B3B3000AC50D /* sparc.h */,
+				07ABE0521DC3B3B3000AC50D /* systemz.h */,
+				07ABE0531DC3B3B3000AC50D /* x86.h */,
+				07ABE0541DC3B3B3000AC50D /* xcore.h */,
+			);
+			path = capstone;
+			sourceTree = "<group>";
+		};
+		07ABE0551DC3B3B3000AC50D /* windowsce */ = {
+			isa = PBXGroup;
+			children = (
+				07ABE0561DC3B3B3000AC50D /* intrin.h */,
+				07ABE0571DC3B3B3000AC50D /* stdint.h */,
+			);
+			path = windowsce;
+			sourceTree = "<group>";
+		};
 		07F966CB18C5BA1200B394AF = {
 			isa = PBXGroup;
 			children = (
@@ -69,7 +192,7 @@
 		07F966D918C5BA1200B394AF /* M68kCPU */ = {
 			isa = PBXGroup;
 			children = (
-				07F966EF18C5CD3C00B394AF /* desa68 */,
+				07ABDF241DC3B3B3000AC50D /* Capstone */,
 				07F966E518C5BA6500B394AF /* M68kCPU.h */,
 				07F966E618C5BA6500B394AF /* M68kCPU.m */,
 				07F966E918C5BAFE00B394AF /* M68kCtx.h */,
@@ -87,15 +210,6 @@
 			);
 			name = "Supporting Files";
 			path = M68kCPU;
-			sourceTree = "<group>";
-		};
-		07F966EF18C5CD3C00B394AF /* desa68 */ = {
-			isa = PBXGroup;
-			children = (
-				07F966F018C5CD3C00B394AF /* desa68.c */,
-				07F966F118C5CD3C00B394AF /* desa68.h */,
-			);
-			path = desa68;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,7 +239,7 @@
 		07F966CC18C5BA1200B394AF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Cryptic Apps";
 			};
 			buildConfigurationList = 07F966CF18C5BA1200B394AF /* Build configuration list for PBXProject "M68kCPU" */;
@@ -178,9 +292,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07F966F218C5CD3C00B394AF /* desa68.c in Sources */,
 				07F966E718C5BA6500B394AF /* M68kCPU.m in Sources */,
+				07ABE2D01DC3B3B4000AC50D /* MCInstrDesc.c in Sources */,
+				07ABE1FE1DC3B3B3000AC50D /* M68KDisassembler.c in Sources */,
+				07ABE2D11DC3B3B4000AC50D /* MCRegisterInfo.c in Sources */,
+				07ABE1FF1DC3B3B3000AC50D /* M68KInstPrinter.c in Sources */,
+				07ABE4151DC3B3B4000AC50D /* utils.c in Sources */,
+				07ABE2CF1DC3B3B4000AC50D /* MCInst.c in Sources */,
 				07F966EB18C5BAFE00B394AF /* M68kCtx.m in Sources */,
+				07ABE2C61DC3B3B3000AC50D /* cs.c in Sources */,
+				07ABE2001DC3B3B3000AC50D /* M68KModule.c in Sources */,
+				07ABE2F31DC3B3B4000AC50D /* SStream.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,17 +332,25 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
+					CAPSTONE_USE_SYS_DYN_MEM,
+					CAPSTONE_HAS_M68K,
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -229,6 +359,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/M68kCPU/Capstone/include";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -247,20 +378,30 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					CAPSTONE_USE_SYS_DYN_MEM,
+					CAPSTONE_HAS_M68K,
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/M68kCPU/Capstone/include";
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
 			};
@@ -279,7 +420,12 @@
 					"$(SRCROOT)/M68kCPU",
 				);
 				INFOPLIST_FILE = "M68kCPU/M68kCPU-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/CPUs";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/v4/CPUs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/M68kCPU/Capstone/others",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cryptic-apps.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = hopperCPU;
 			};
@@ -298,7 +444,12 @@
 					"$(SRCROOT)/M68kCPU",
 				);
 				INFOPLIST_FILE = "M68kCPU/M68kCPU-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/CPUs";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/v4/CPUs";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/M68kCPU/Capstone/others",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cryptic-apps.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = hopperCPU;
 			};

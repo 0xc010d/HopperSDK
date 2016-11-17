@@ -1,8 +1,8 @@
 //
 // Hopper Disassembler SDK
 //
-// (c)2014 - Cryptic Apps SARL. All Rights Reserved.
-// http://www.hopperapp.com
+// (c)2016 - Cryptic Apps SARL. All Rights Reserved.
+// https://www.hopperapp.com
 //
 // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
 // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
@@ -23,7 +23,7 @@
 - (BOOL)canLoadDebugFiles;
 
 /// Returns an array of DetectedFileType objects.
-- (NSArray *)detectedTypesForData:(NSData *)data;
+- (NSArray<DetectedFileType *> *)detectedTypesForData:(NSData *)data;
 
 /// Load a file.
 /// The plugin should create HPSegment and HPSection objects.

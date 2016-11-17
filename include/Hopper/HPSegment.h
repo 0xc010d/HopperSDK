@@ -1,14 +1,16 @@
 //
 // Hopper Disassembler SDK
 //
-// (c)2014 - Cryptic Apps SARL. All Rights Reserved.
-// http://www.hopperapp.com
+// (c)2016 - Cryptic Apps SARL. All Rights Reserved.
+// https://www.hopperapp.com
 //
 // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
 // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
 // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
 // PARTICULAR PURPOSE.
 //
+
+#import "CommonTypes.h"
 
 @protocol HPSection;
 
@@ -29,7 +31,7 @@
 
 - (BOOL)containsVirtualAddress:(Address)virtualAddress;
 
-- (NSArray *)sections; /// An array of NSObject<HPSection> objects
+- (NSArray<NSObject<HPSection> *> *)sections;
 - (NSUInteger)sectionCount;
 
 - (NSObject<HPSegment> *)nextSegment;
@@ -43,8 +45,8 @@
 - (NSObject<HPSection> *)sectionNamed:(NSString *)name;
 
 // XREFs
-- (NSArray *)referencesToAddress:(Address)virtualAddress;
-- (NSArray *)referencesFromAddress:(Address)virtualAddress;
+- (NSArray<NSNumber *> *)referencesToAddress:(Address)virtualAddress;
+- (NSArray<NSNumber *> *)referencesFromAddress:(Address)virtualAddress;
 - (void)removeReferencesOfAddress:(Address)referenced fromAddress:(Address)origin;
 - (void)addReferencesToAddress:(Address)referenced fromAddress:(Address)origin;
 

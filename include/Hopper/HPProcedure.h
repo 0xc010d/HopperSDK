@@ -1,14 +1,16 @@
 //
 // Hopper Disassembler SDK
 //
-// (c)2014 - Cryptic Apps SARL. All Rights Reserved.
-// http://www.hopperapp.com
+// (c)2016 - Cryptic Apps SARL. All Rights Reserved.
+// https://www.hopperapp.com
 //
 // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
 // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
 // IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
 // PARTICULAR PURPOSE.
 //
+
+#import "CommonTypes.h"
 
 @protocol HPTag;
 @protocol HPBasicBlock;
@@ -32,14 +34,14 @@
 - (NSObject<HPSegment> *)segment;
 
 - (Address)entryPoint;
-- (NSArray *)allExitBlocks; // Array of BasicBlock
+- (NSArray<NSObject<HPBasicBlock> *> *)allExitBlocks;
 
 // Stack
 - (int16_t)stackPointerOffsetAt:(Address)address;
 
 // Variables
 - (NSString *)variableNameForDisplacement:(int64_t)disp;
-- (void)setVariableName:(NSString *)name forDisplacement:(int64_t)disp;
+- (BOOL)setVariableName:(NSString *)name forDisplacement:(int64_t)disp;
 - (NSString *)resolvedVariableNameForDisplacement:(int64_t)disp usingCPUContext:(NSObject<CPUContext> *)cpuContext;
 
 // Tags

@@ -1,8 +1,8 @@
 //
 // Hopper Disassembler SDK
 //
-// (c)2014 - Cryptic Apps SARL. All Rights Reserved.
-// http://www.hopperapp.com
+// (c)2016 - Cryptic Apps SARL. All Rights Reserved.
+// https://www.hopperapp.com
 //
 // THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
 // KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
@@ -13,6 +13,9 @@
 #ifndef _HOPPER_COMMONTYPES_H_
 #define _HOPPER_COMMONTYPES_H_
 
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
 
 // Addresses
 
@@ -156,7 +159,9 @@ HP_BEGIN_DECL_ENUM(NSUInteger, TypeDescType) {
     TypeDesc_Short,
     TypeDesc_UShort,
 
-    TypeDesc_FunctionPointer
+    TypeDesc_FunctionPointer,
+
+    TypeDesc_Enum
 }
 HP_END_DECL_ENUM(TypeDescType);
 
@@ -177,6 +182,7 @@ HP_BEGIN_DECL_ENUM(NSUInteger, ArgFormat) {
     Format_Binary,
 
     Format_Structured,
+    Format_Enum,
 
     Format_Negate = 0x20,
     Format_LeadingZeroes = 0x40,
@@ -229,6 +235,7 @@ HP_BEGIN_DECL_ENUM(NSUInteger, RegClass) {
     RegClass_X86_MMX,
     RegClass_X86_SSE,
     RegClass_X86_AVX,
+    RegClass_X86_SEG,
 
     // ARM
     RegClass_ARM_VFP_Single = RegClass_FirstUserClass,

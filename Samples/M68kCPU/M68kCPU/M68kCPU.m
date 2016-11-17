@@ -20,6 +20,10 @@
     return self;
 }
 
+- (NSObject<HPHopperServices> *)hopperServices {
+    return _services;
+}
+
 - (NSObject<CPUContext> *)buildCPUContextForFile:(NSObject<HPDisassembledFile> *)file {
     return [[M68kCtx alloc] initWithCPU:self andFile:file];
 }
@@ -105,24 +109,40 @@
     return 0;
 }
 
-- (BOOL)registerIndexIsStackPointer:(uint32_t)reg ofClass:(RegClass)reg_class {
+- (BOOL)registerIndexIsStackPointer:(NSUInteger)reg ofClass:(RegClass)reg_class {
     return reg_class == RegClass_AddressRegister && reg == 7;
 }
 
-- (BOOL)registerIndexIsFrameBasePointer:(uint32_t)reg ofClass:(RegClass)reg_class {
+- (BOOL)registerIndexIsFrameBasePointer:(NSUInteger)reg ofClass:(RegClass)reg_class {
     return NO;
 }
 
-- (BOOL)registerIndexIsProgramCounter:(uint32_t)reg {
+- (BOOL)registerIndexIsProgramCounter:(NSUInteger)reg {
     return NO;
 }
 
-- (NSString *)registerIndexToString:(int)reg ofClass:(RegClass)reg_class withBitSize:(int)size andPosition:(DisasmPosition)position {
+- (NSString *)registerIndexToString:(NSUInteger)reg ofClass:(RegClass)reg_class withBitSize:(NSUInteger)size andPosition:(DisasmPosition)position {
     switch (reg_class) {
-        case RegClass_CPUState: return @"CCR";
-        case RegClass_PseudoRegisterSTACK: return [NSString stringWithFormat:@"STK%d", reg];
-        case RegClass_GeneralPurposeRegister: return [NSString stringWithFormat:@"d%d", reg];
-        case RegClass_AddressRegister: return [NSString stringWithFormat:@"a%d", reg];
+        case RegClass_CPUState:
+            if (reg < 21) {
+                static NSString *names[] = {
+                    @"SR",    @"CCR",  @"SFC",
+                    @"DFC",   @"USP",  @"VBR",
+                    @"CACR",  @"CAAR", @"MSP",
+                    @"ISP",   @"TC",   @"ITT0",
+                    @"ITT1",  @"DTT0", @"DTT1",
+                    @"MMUSR", @"URP",  @"SRP",
+                    @"FPCR",  @"FPSR", @"FPIAR"
+                };
+                return names[reg];
+            }
+            return [NSString stringWithFormat:@"UNKNOWN_CPUSTATE_REG<%lld>", (long long) reg];
+        case RegClass_PseudoRegisterSTACK: return [NSString stringWithFormat:@"STK%d", (int) reg];
+        case RegClass_GeneralPurposeRegister: return [NSString stringWithFormat:@"D%d", (int) reg];
+        case RegClass_AddressRegister:
+            if (reg == 8) return @"PC";
+            return [NSString stringWithFormat:@"A%d", (int) reg];
+        case RegClass_FPRegister: return [NSString stringWithFormat:@"FP%d", (int) reg];
         default: break;
     }
     return nil;
@@ -134,24 +154,6 @@
 
 - (NSUInteger)translateOperandIndex:(NSUInteger)index operandCount:(NSUInteger)count accordingToSyntax:(uint8_t)syntaxIndex {
     return index;
-}
-
-- (NSAttributedString *)colorizeInstructionString:(NSAttributedString *)string {
-    NSMutableAttributedString *colorized = [string mutableCopy];
-    [_services colorizeASMString:colorized
-               operatorPredicate:^BOOL(unichar c) {
-                   return (c == '#' || c == '$');
-               }
-           languageWordPredicate:^BOOL(NSString *s) {
-               return [s isEqualToString:@"d0"] || [s isEqualToString:@"d1"] || [s isEqualToString:@"d2"] || [s isEqualToString:@"d3"]
-                   || [s isEqualToString:@"d4"] || [s isEqualToString:@"d5"] || [s isEqualToString:@"d6"] || [s isEqualToString:@"d7"]
-                   || [s isEqualToString:@"a0"] || [s isEqualToString:@"a1"] || [s isEqualToString:@"a2"] || [s isEqualToString:@"a3"]
-                   || [s isEqualToString:@"a4"] || [s isEqualToString:@"a5"] || [s isEqualToString:@"a6"] || [s isEqualToString:@"a7"];
-           }
-        subLanguageWordPredicate:^BOOL(NSString *s) {
-            return NO;
-        }];
-    return colorized;
 }
 
 - (NSData *)nopWithSize:(NSUInteger)size andMode:(NSUInteger)cpuMode forFile:(NSObject<HPDisassembledFile> *)file {
