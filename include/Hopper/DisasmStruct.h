@@ -292,7 +292,10 @@ typedef struct {
     int64_t            immediateValue;                  /// The immediate value for this operand, if known.
     uint8_t            isBranchDestination;             /// A value different from 0 if the operand is used to compute a destination address for a branch instruction
 
-    uint64_t           userData[DISASM_MAX_USER_DATA];  /// You can use this field to store important informations, Hopper will not use it.
+    union {
+        uint64_t       userData[DISASM_MAX_USER_DATA];  /// You can use this field to store important informations, Hopper will not use it.
+        char           userString[DISASM_MAX_USER_DATA * 8];
+    };
 } DisasmOperand;
 
 typedef struct {
