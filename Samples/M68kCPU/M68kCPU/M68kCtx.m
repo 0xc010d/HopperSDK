@@ -356,7 +356,7 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
         int lastOperand = insn->detail->m68k.op_count - 1;
         if (insn->detail->m68k.operands[lastOperand].type == M68K_OP_IMM) {
             disasm->instruction.addressValue = insn->detail->m68k.operands[lastOperand].imm;
-            disasm->operand[lastOperand].type = DISASM_OPERAND_MEMORY_TYPE;
+            disasm->operand[lastOperand].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_RELATIVE;
             disasm->operand[lastOperand].memory.displacement = disasm->instruction.addressValue;
         }
         disasm->operand[lastOperand].isBranchDestination = 1;
