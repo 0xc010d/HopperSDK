@@ -219,10 +219,9 @@ typedef enum {
 
 typedef struct {
     uint8_t lockPrefix;
-    uint8_t operandSize;
-    uint8_t addressSize;
     uint8_t repnePrefix;
     uint8_t repPrefix;
+    uint8_t segmentOverride;
 } DisasmPrefix;
 
 typedef struct {
