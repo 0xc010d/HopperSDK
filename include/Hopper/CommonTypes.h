@@ -55,10 +55,10 @@ typedef uint32_t Color;
 #endif
 
 HP_BEGIN_DECL_ENUM(uint8_t, ByteType) {
-	Type_Undefined,
-	Type_Outside,
+    Type_Undefined,
+    Type_Outside,
 
-	Type_Next,      /// This memory block info is part of the previous bloc
+    Type_Next,      /// This memory block info is part of the previous bloc
 
     Type_Int8,
     Type_Int16,
@@ -70,8 +70,8 @@ HP_BEGIN_DECL_ENUM(uint8_t, ByteType) {
 
     Type_Data,      /// METATYPE : Only used for searching, no bytes have this type!
     
-	Type_Code,
-	Type_Procedure,
+    Type_Code,
+    Type_Procedure,
 
     Type_Structure
 }
@@ -382,5 +382,15 @@ HP_BEGIN_DECL_OPTIONS(NSUInteger, DecompilerOptions) {
     Decompiler_RemoveMacros = 2
 }
 HP_END_DECL_OPTIONS(DecompilerOptions);
+
+// View Modes
+
+HP_BEGIN_DECL_ENUM(NSUInteger, AssemblyViewMode) {
+    ASMVMode_Assembly,
+    ASMVMode_CFG,
+    ASMVMode_PseudoCode,
+    ASMVMode_Hex
+}
+HP_END_DECL_ENUM(AssemblyViewMode);
 
 #endif

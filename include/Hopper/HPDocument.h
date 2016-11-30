@@ -39,6 +39,7 @@ typedef void (^CancelBlock)(void);
 - (void)popAddressFromNavigationStack;
 
 // Background process
+- (void)waitForBackgroundProcessToEnd;
 - (BOOL)backgroundProcessActive;
 - (void)requestBackgroundProcessStop;
 
