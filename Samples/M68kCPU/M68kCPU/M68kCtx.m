@@ -353,13 +353,53 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
     // advantage of the various analysis of Hopper.
 
     if (cs_insn_group(_handle, insn, M68K_GRP_JUMP)) {
-        int lastOperand = insn->detail->m68k.op_count - 1;
-        if (insn->detail->m68k.operands[lastOperand].type == M68K_OP_IMM) {
-            disasm->instruction.addressValue = insn->detail->m68k.operands[lastOperand].imm;
-            disasm->operand[lastOperand].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_RELATIVE;
-            disasm->operand[lastOperand].memory.displacement = disasm->instruction.addressValue;
+        if (insn->detail->m68k.op_count > 0) {
+            int lastOperandIndex = insn->detail->m68k.op_count - 1;
+            cs_m68k_op *lastOperand = &insn->detail->m68k.operands[lastOperandIndex];
+            if (lastOperand->type == M68K_OP_IMM) {
+                disasm->instruction.addressValue = lastOperand->imm;
+                disasm->operand[lastOperandIndex].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_RELATIVE;
+                disasm->operand[lastOperandIndex].memory.displacement = disasm->instruction.addressValue;
+            }
+            if (insn->detail->m68k.operands[lastOperandIndex].type == M68K_OP_MEM) {
+                disasm->instruction.addressValue = lastOperand->imm;
+                switch (lastOperand->address_mode) {
+                    case M68K_AM_NONE: break;
+                    case M68K_AM_REG_DIRECT_DATA: break;
+                    case M68K_AM_REG_DIRECT_ADDR: break;
+                    case M68K_AM_REGI_ADDR: break;
+                    case M68K_AM_REGI_ADDR_POST_INC: break;
+                    case M68K_AM_REGI_ADDR_PRE_DEC: break;
+                    case M68K_AM_REGI_ADDR_DISP: break;
+                    case M68K_AM_AREGI_INDEX_8_BIT_DISP: break;
+                    case M68K_AM_AREGI_INDEX_BASE_DISP: break;
+                    case M68K_AM_MEMI_POST_INDEX: break;
+                    case M68K_AM_MEMI_PRE_INDEX: break;
+                    case M68K_AM_PCI_DISP:
+                        disasm->operand[lastOperandIndex].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_RELATIVE;
+                        disasm->instruction.addressValue = disasm->virtualAddr + insn->size + lastOperand->mem.disp;
+                        break;
+                    case M68K_AM_PCI_INDEX_8_BIT_DISP: break;
+                    case M68K_AM_PCI_INDEX_BASE_DISP: break;
+                    case M68K_AM_PC_MEMI_POST_INDEX: break;
+                    case M68K_AM_PC_MEMI_PRE_INDEX: break;
+                    case M68K_AM_ABSOLUTE_DATA_SHORT:
+                        disasm->operand[lastOperandIndex].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_ABSOLUTE;
+                        disasm->instruction.addressValue = lastOperand->imm;
+                        break;
+                    case M68K_AM_ABSOLUTE_DATA_LONG:
+                        disasm->operand[lastOperandIndex].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_ABSOLUTE;
+                        disasm->instruction.addressValue = lastOperand->imm;
+                        break;
+                    case M68K_AM_IMMIDIATE:
+                        disasm->operand[lastOperandIndex].type = DISASM_OPERAND_CONSTANT_TYPE | DISASM_OPERAND_ABSOLUTE;
+                        disasm->instruction.addressValue = lastOperand->imm;
+                        break;
+                }
+            }
+            disasm->operand[lastOperandIndex].isBranchDestination = 1;
+            if (disasm->instruction.addressValue) disasm->operand[lastOperandIndex].immediateValue = disasm->instruction.addressValue;
         }
-        disasm->operand[lastOperand].isBranchDestination = 1;
 
         switch(insn->id) {
             case M68K_INS_JSR:
@@ -532,8 +572,13 @@ static inline int regIndexFromType(uint64_t type) {
     NSObject<HPASMLine> *line = [services blankASMLine];
 
     if (operand->type & DISASM_OPERAND_CONSTANT_TYPE) {
-        [line appendRawString:@"#"];
-        [line appendHexadecimalNumber:operand->immediateValue];
+        if (disasm->instruction.branchType) {
+            if (format == Format_Default) format = Format_Address;
+        }
+        else {
+            [line appendRawString:@"#"];
+        }
+        [line append:[file formatNumber:operand->immediateValue at:disasm->virtualAddr usingFormat:format andBitSize:32]];
     }
     else if (operand->type & DISASM_OPERAND_REGISTER_TYPE) {
         if (operand->userData[DISASM_M68K_OP_USER_REGLIST] == 0) {
@@ -658,7 +703,7 @@ static inline int regIndexFromType(uint64_t type) {
         }
         else {
             if (format == Format_Default) format = Format_Address;
-            [line append:[file formatNumber:operand->memory.displacement at:disasm->virtualAddr usingFormat:format andBitSize:32]];
+            [line append:[file formatNumber:operand->immediateValue at:disasm->virtualAddr usingFormat:format andBitSize:32]];
         }
     }
     
