@@ -15,6 +15,7 @@
 @protocol HPTag;
 @protocol HPBasicBlock;
 @protocol HPSegment;
+@protocol HPCallReference;
 @protocol CPUContext;
 
 @protocol HPProcedure
@@ -38,6 +39,21 @@
 
 // Stack
 - (int16_t)stackPointerOffsetAt:(Address)address;
+
+// Local Labels
+- (BOOL)hasLocalLabelAtAddress:(Address)address;
+- (NSString *)localLabelAtAddress:(Address)address;
+- (void)setLocalLabel:(NSString *)name atAddress:(Address)address;
+- (NSString *)declareLocalLabelAt:(Address)address;
+- (void)removeLocalLabelAtAddress:(Address)address;
+- (Address)addressOfLocalLabel:(NSString *)name;
+
+// Call Graph
+- (NSArray<NSObject<HPCallReference> *> *)allCallers;
+- (NSArray<NSObject<HPCallReference> *> *)allCallees;
+
+- (NSArray<NSObject<HPProcedure> *> *)allCalleeProcedures;
+- (NSArray<NSObject<HPProcedure> *> *)allCallerProcedures;
 
 // Variables
 - (NSString *)variableNameForDisplacement:(int64_t)disp;

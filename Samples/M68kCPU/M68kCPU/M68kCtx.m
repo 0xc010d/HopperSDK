@@ -555,7 +555,9 @@ static inline int regIndexFromType(uint64_t type) {
 - (NSObject<HPASMLine> *)buildMnemonicString:(DisasmStruct *)disasm inFile:(NSObject<HPDisassembledFile> *)file {
     NSObject<HPHopperServices> *services = _cpu.hopperServices;
     NSObject<HPASMLine> *line = [services blankASMLine];
-    [line appendMnemonic:@(disasm->instruction.mnemonic)];
+    NSString *mnemonic = @(disasm->instruction.mnemonic);
+    if (file.userRequestedSyntaxIndex) mnemonic = [mnemonic uppercaseString];
+    [line appendMnemonic:mnemonic];
     return line;
 }
 
@@ -588,7 +590,8 @@ static inline int regIndexFromType(uint64_t type) {
             [line appendRegister:[_cpu registerIndexToString:regIdx
                                                      ofClass:regCls
                                                  withBitSize:32
-                                                 andPosition:DISASM_LOWPOSITION]
+                                                    position:DISASM_LOWPOSITION
+                                              andSyntaxIndex:file.userRequestedSyntaxIndex]
                          ofClass:regCls
                         andIndex:regIdx];
         }
@@ -619,7 +622,8 @@ static inline int regIndexFromType(uint64_t type) {
                             [line appendRegister:[_cpu registerIndexToString:lastIdxInRange
                                                                      ofClass:lastClsInRange
                                                                  withBitSize:32
-                                                                 andPosition:DISASM_LOWPOSITION]];
+                                                                    position:DISASM_LOWPOSITION
+                                                              andSyntaxIndex:file.userRequestedSyntaxIndex]];
                             first = NO;
                         }
                         if (!first) {
@@ -628,7 +632,8 @@ static inline int regIndexFromType(uint64_t type) {
                         [line appendRegister:[_cpu registerIndexToString:regIdx
                                                                  ofClass:regCls
                                                              withBitSize:32
-                                                             andPosition:DISASM_LOWPOSITION]];
+                                                                position:DISASM_LOWPOSITION
+                                                          andSyntaxIndex:file.userRequestedSyntaxIndex]];
                         firstClsInRange = regCls;
                         firstIdxInRange = regIdx;
                     }
@@ -643,7 +648,8 @@ static inline int regIndexFromType(uint64_t type) {
                 [line appendRegister:[_cpu registerIndexToString:lastIdxInRange
                                                          ofClass:lastClsInRange
                                                      withBitSize:32
-                                                     andPosition:DISASM_LOWPOSITION]];
+                                                        position:DISASM_LOWPOSITION
+                                                  andSyntaxIndex:file.userRequestedSyntaxIndex]];
             }
         }
     }
@@ -674,7 +680,8 @@ static inline int regIndexFromType(uint64_t type) {
                 [line appendRegister:[_cpu registerIndexToString:regIdx
                                                          ofClass:(RegClass) RegClass_AddressRegister
                                                      withBitSize:32
-                                                     andPosition:DISASM_LOWPOSITION]
+                                                        position:DISASM_LOWPOSITION
+                                                  andSyntaxIndex:file.userRequestedSyntaxIndex]
                              ofClass:(RegClass) RegClass_AddressRegister
                             andIndex:regIdx];
 
@@ -685,7 +692,8 @@ static inline int regIndexFromType(uint64_t type) {
                     [line appendRegister:[_cpu registerIndexToString:regIdx
                                                              ofClass:regCls
                                                          withBitSize:32
-                                                         andPosition:DISASM_LOWPOSITION]
+                                                            position:DISASM_LOWPOSITION
+                                                      andSyntaxIndex:file.userRequestedSyntaxIndex]
                                  ofClass:regCls
                                 andIndex:regIdx];
                     if (operand->size == 16) {

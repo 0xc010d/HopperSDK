@@ -74,20 +74,20 @@
     return CPUEndianess_Big;
 }
 
-- (NSUInteger)syntaxVariantCount {
-    return 1;
-}
-
 - (NSUInteger)cpuModeCount {
     return 1;
 }
 
-- (NSArray *)syntaxVariantNames {
+- (NSArray<NSString *> *)cpuModeNames {
     return @[@"generic"];
 }
 
-- (NSArray *)cpuModeNames {
-    return @[@"generic"];
+- (NSUInteger)syntaxVariantCount {
+    return 2;
+}
+
+- (NSArray<NSString *> *)syntaxVariantNames {
+    return @[@"lowercase", @"uppercase"];
 }
 
 - (NSString *)framePointerRegisterNameForFile:(NSObject<HPDisassembledFile> *)file {
@@ -121,31 +121,37 @@
     return NO;
 }
 
-- (NSString *)registerIndexToString:(NSUInteger)reg ofClass:(RegClass)reg_class withBitSize:(NSUInteger)size andPosition:(DisasmPosition)position {
+- (NSString *)lowercaseStringForRegister:(NSUInteger)reg ofClass:(RegClass)reg_class {
     switch (reg_class) {
         case RegClass_CPUState:
             if (reg < 21) {
                 static NSString *names[] = {
-                    @"SR",    @"CCR",  @"SFC",
-                    @"DFC",   @"USP",  @"VBR",
-                    @"CACR",  @"CAAR", @"MSP",
-                    @"ISP",   @"TC",   @"ITT0",
-                    @"ITT1",  @"DTT0", @"DTT1",
-                    @"MMUSR", @"URP",  @"SRP",
-                    @"FPCR",  @"FPSR", @"FPIAR"
+                    @"sr",    @"ccr",  @"sfc",
+                    @"dfc",   @"usp",  @"vbr",
+                    @"cacr",  @"caar", @"msp",
+                    @"isp",   @"tc",   @"itt0",
+                    @"itt1",  @"dtt0", @"dtt1",
+                    @"mmusr", @"urp",  @"srp",
+                    @"fpcr",  @"fpsr", @"fpiar"
                 };
                 return names[reg];
             }
             return [NSString stringWithFormat:@"UNKNOWN_CPUSTATE_REG<%lld>", (long long) reg];
-        case RegClass_PseudoRegisterSTACK: return [NSString stringWithFormat:@"STK%d", (int) reg];
-        case RegClass_GeneralPurposeRegister: return [NSString stringWithFormat:@"D%d", (int) reg];
+        case RegClass_PseudoRegisterSTACK: return [NSString stringWithFormat:@"stk%d", (int) reg];
+        case RegClass_GeneralPurposeRegister: return [NSString stringWithFormat:@"d%d", (int) reg];
         case RegClass_AddressRegister:
-            if (reg == 8) return @"PC";
-            return [NSString stringWithFormat:@"A%d", (int) reg];
-        case RegClass_FPRegister: return [NSString stringWithFormat:@"FP%d", (int) reg];
+            if (reg == 8) return @"pc";
+            return [NSString stringWithFormat:@"a%d", (int) reg];
+        case RegClass_FPRegister: return [NSString stringWithFormat:@"fp%d", (int) reg];
         default: break;
     }
     return nil;
+}
+
+- (NSString *)registerIndexToString:(NSUInteger)reg ofClass:(RegClass)reg_class withBitSize:(NSUInteger)size position:(DisasmPosition)position andSyntaxIndex:(NSUInteger)syntaxIndex {
+    NSString *regName = [self lowercaseStringForRegister:reg ofClass:reg_class];
+    if (syntaxIndex == 1) regName = [regName uppercaseString];
+    return regName;
 }
 
 - (NSString *)cpuRegisterStateMaskToString:(uint32_t)cpuState {

@@ -24,6 +24,7 @@
 #import "HPTag.h"
 #import "DisasmStruct.h"
 #import "HPASMLine.h"
+#import "HPCallReference.h"
 
 // Loader
 #import "HPLoaderOptionComponents.h"

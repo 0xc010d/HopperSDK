@@ -48,9 +48,9 @@ typedef uint32_t Color;
 #  define HP_END_DECL_OPTIONS(TYPE)
 # endif
 #else
-#  define HP_BEGIN_DECL_ENUM(BASE,TYPE) typedef enum
+#  define HP_BEGIN_DECL_ENUM(BASE,TYPE) typedef enum : BASE
 #  define HP_END_DECL_ENUM(TYPE) TYPE
-#  define HP_BEGIN_DECL_OPTIONS(BASE,TYPE) typedef enum
+#  define HP_BEGIN_DECL_OPTIONS(BASE,TYPE) typedef enum : BASE
 #  define HP_END_DECL_OPTIONS(TYPE) TYPE
 #endif
 
@@ -372,6 +372,16 @@ HP_BEGIN_DECL_ENUM(NSUInteger, DebuggerType) {
     Debugger_DebugServer
 }
 HP_END_DECL_ENUM(DebuggerType);
+
+// Call Reference
+
+HP_BEGIN_DECL_ENUM(NSUInteger, CallReferenceType) {
+    Call_None,
+    Call_Unknown,
+    Call_Direct,            // A direct call, like JMP, CALL, etc.
+    Call_ObjectiveC         // A call through objc_msgSend
+}
+HP_END_DECL_ENUM(CallReferenceType);
 
 // Decompiler
 #define DECOMPILER_DEFAULT_OPTIONS (Decompiler_RemoveDeadCode | Decompiler_RemoveMacros)

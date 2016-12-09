@@ -40,7 +40,7 @@
 
 - (NSUInteger)registerClassCount;
 - (NSUInteger)registerCountForClass:(RegClass)reg_class;
-- (NSString *)registerIndexToString:(NSUInteger)reg ofClass:(RegClass)reg_class withBitSize:(NSUInteger)size andPosition:(DisasmPosition)position;
+- (NSString *)registerIndexToString:(NSUInteger)reg ofClass:(RegClass)reg_class withBitSize:(NSUInteger)size position:(DisasmPosition)position andSyntaxIndex:(NSUInteger)syntaxIndex;
 - (NSString *)cpuRegisterStateMaskToString:(uint32_t)cpuState;
 - (BOOL)registerIndexIsStackPointer:(NSUInteger)reg ofClass:(RegClass)reg_class;
 - (BOOL)registerIndexIsFrameBasePointer:(NSUInteger)reg ofClass:(RegClass)reg_class;
