@@ -100,7 +100,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return @[];
 }
 
-- (FileLoaderLoadingStatus)loadData:(NSData *)data usingDetectedFileType:(DetectedFileType *)fileType options:(FileLoaderOptions)options forFile:(NSObject<HPDisassembledFile> *)file usingCallback:(FileLoadingCallbackInfo)callback {
+- (FileLoaderLoadingStatus)loadData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType options:(FileLoaderOptions)options forFile:(NSObject<HPDisassembledFile> *)file usingCallback:(FileLoadingCallbackInfo)callback {
     const void *bytes = (const void *)[data bytes];
     const void *lastByte = bytes + [data length];
     if (OSReadBigInt32(bytes, 0) != HUNK_HEADER) return DIS_BadFormat;
@@ -230,7 +230,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return DIS_NotSupported;
 }
 
-- (NSData *)extractFromData:(NSData *)data usingDetectedFileType:(DetectedFileType *)fileType returnAdjustOffset:(uint64_t *)adjustOffset {
+- (NSData *)extractFromData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType returnAdjustOffset:(uint64_t *)adjustOffset {
     return nil;
 }
 
