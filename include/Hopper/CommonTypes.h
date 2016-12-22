@@ -369,7 +369,8 @@ HP_BEGIN_DECL_ENUM(NSUInteger, DebuggerType) {
     Debugger_Local,
     Debugger_HopperDebuggerServer,
     Debugger_GDBRemote,
-    Debugger_DebugServer
+    Debugger_DebugServer,
+    Debugger_KDP
 }
 HP_END_DECL_ENUM(DebuggerType);
 

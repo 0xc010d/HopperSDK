@@ -44,6 +44,13 @@
 - (NSObject<HPSection> *)lastSection;
 - (NSObject<HPSection> *)sectionNamed:(NSString *)name;
 
+- (NSUInteger)procedureCount;
+- (BOOL)hasProcedureAt:(Address)virtualAddress;
+- (NSObject<HPProcedure> *)procedureAt:(Address)virtualAddress;
+- (NSObject<HPProcedure> *)procedureAtIndex:(NSUInteger)index;
+- (NSInteger)procedureIndex:(NSObject<HPProcedure> *)procedure;
+- (NSArray<NSObject<HPProcedure> *> *)procedures;
+
 // XREFs
 - (NSArray<NSNumber *> *)referencesToAddress:(Address)virtualAddress;
 - (NSArray<NSNumber *> *)referencesFromAddress:(Address)virtualAddress;
