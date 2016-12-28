@@ -13,6 +13,7 @@
 #import "CommonTypes.h"
 
 @protocol HPSection;
+@protocol HPProcedure;
 
 @protocol HPSegment
 

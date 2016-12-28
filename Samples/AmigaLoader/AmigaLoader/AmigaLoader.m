@@ -101,8 +101,10 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
 }
 
 - (FileLoaderLoadingStatus)loadData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType options:(FileLoaderOptions)options forFile:(NSObject<HPDisassembledFile> *)file usingCallback:(FileLoadingCallbackInfo)callback {
-    const void *bytes = (const void *)[data bytes];
-    const void *lastByte = bytes + [data length];
+    const void *firstByte = (const void *)[data bytes];
+    const void *lastByte = firstByte + [data length];
+
+    const void *bytes = firstByte;
     if (OSReadBigInt32(bytes, 0) != HUNK_HEADER) return DIS_BadFormat;
     bytes += 4;
 
@@ -132,6 +134,9 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     NSObject<HPSegment> *currentSegment = nil;
 
     while (bytes < lastByte) {
+        float progress = (float) (bytes - firstByte) / (float) (lastByte - firstByte);
+        callback(@"Loading Amiga File", progress);
+
         uint32_t hunk_id = OSReadBigInt32(bytes, 0); bytes += 4;
         hunk_id &= 0x3FFFFFFF;
 
