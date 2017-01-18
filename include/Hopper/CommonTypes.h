@@ -77,13 +77,21 @@ HP_BEGIN_DECL_ENUM(uint8_t, ByteType) {
 }
 HP_END_DECL_ENUM(ByteType);
 
+HP_BEGIN_DECL_ENUM(uint8_t, PrologHeuristic) {
+    PH_UseHeuristic,
+    PH_ForceProlog,
+    PH_ForceNoProlog
+}
+HP_END_DECL_ENUM(PrologHeuristic);
+
 HP_BEGIN_DECL_ENUM(uint8_t, ProcedureCreationReason) {
     PCReason_None,
     PCReason_Unknown,       // Unknown reason
     PCReason_User,          // Created by the used
     PCReason_Script,        // A Python script created the procedure
     PCReason_Called,        // A call statement has been found somewhere
-    PCReason_Prolog         // A procedure prolog was detected during the analysis
+    PCReason_Prolog,        // A procedure prolog was detected during the analysis
+    PCReason_Pointer        // A pointer has been found
 }
 HP_END_DECL_ENUM(ProcedureCreationReason);
 
