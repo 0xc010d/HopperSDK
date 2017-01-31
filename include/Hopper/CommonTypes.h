@@ -402,6 +402,27 @@ HP_BEGIN_DECL_OPTIONS(NSUInteger, DecompilerOptions) {
 }
 HP_END_DECL_OPTIONS(DecompilerOptions);
 
+// Saving, and loading status
+
+HP_BEGIN_DECL_ENUM(NSInteger, FileLoadingStatus) {
+    FPS_NotLoaded,
+    FPS_CannotRead,
+    FPS_NotAHopperDB,
+    FPS_BadVersion,
+    FPS_Corrupted,
+    FPS_BAD_CRC,
+    FPS_MissingPlugin,
+    FPS_Loaded
+}
+HP_END_DECL_ENUM(FileLoadingStatus);
+
+HP_BEGIN_DECL_ENUM(NSInteger, FileSavingStatus) {
+    FPS_NotSaved,
+    FPS_CannotWrite,
+    FPS_Saved
+}
+HP_END_DECL_ENUM(FileSavingStatus);
+
 // View Modes
 
 HP_BEGIN_DECL_ENUM(NSUInteger, AssemblyViewMode) {
