@@ -323,6 +323,10 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
                     disasm->instruction.pcRegisterValue -= 2;
                     disasm->instruction.addressValue = disasm->instruction.pcRegisterValue + op->mem.disp;
                 }
+                
+                if (!registerIndirect && !hasIndex && !baseIsPC) {
+                    hop_op->immediateValue = op->imm;
+                }
 
                 if (postIncr) hop_op->userData[DISASM_M68K_OP_USER_INCREMENT] = INCR_Postincrement;
                 if (preDecr) hop_op->userData[DISASM_M68K_OP_USER_INCREMENT] = INCR_Predecrement;
