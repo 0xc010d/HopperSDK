@@ -402,6 +402,23 @@ HP_BEGIN_DECL_OPTIONS(NSUInteger, DecompilerOptions) {
 }
 HP_END_DECL_OPTIONS(DecompilerOptions);
 
+// CFG Mode
+
+HP_BEGIN_DECL_ENUM(uint8_t, CFGEdgeType) {
+    CFG_ConditionalJumpTrue,
+    CFG_ConditionalJumpFalse,
+    CFG_Jump
+}
+HP_END_DECL_ENUM(CFGEdgeType);
+
+HP_BEGIN_DECL_ENUM(uint8_t, CFGEdgePortLocation) {
+    CFG_PortTop,
+    CFG_PortBottom,
+    CFG_PortLeft,
+    CFG_PortRight
+}
+HP_END_DECL_ENUM(CFGEdgePortLocation);
+
 // Saving, and loading status
 
 HP_BEGIN_DECL_ENUM(NSInteger, FileLoadingStatus) {
