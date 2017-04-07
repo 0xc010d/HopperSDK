@@ -777,6 +777,10 @@ static inline int regIndexFromType(uint64_t type) {
     return YES;
 }
 
+- (BOOL)instructionOnlyLoadsAddress:(DisasmStruct *)disasmStruct {
+    return strcmp(disasmStruct->instruction.mnemonic, "lea") == 0;
+}
+
 - (BOOL)instructionMayBeASwitchStatement:(DisasmStruct *)disasmStruct {
     return NO;
 }

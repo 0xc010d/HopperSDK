@@ -191,8 +191,21 @@ typedef enum {
     DISASM_SHIFT_LSR,
     DISASM_SHIFT_ASR,
     DISASM_SHIFT_ROR,
-    DISASM_SHIFT_RRX
+    DISASM_SHIFT_RRX,
+    DISASM_SHIFT_MSL
 } DisasmShiftMode;
+
+typedef enum {
+    DISASM_EXT_NONE,
+    DISASM_EXT_UXTB,
+    DISASM_EXT_UXTH,
+    DISASM_EXT_UXTW,
+    DISASM_EXT_UXTX,
+    DISASM_EXT_SXTB,
+    DISASM_EXT_SXTH,
+    DISASM_EXT_SXTW,
+    DISASM_EXT_SXTX
+} DisasmExtMode;
 
 typedef enum {
     DISASM_ACCESS_NONE  =  0x0,
@@ -285,6 +298,7 @@ typedef struct {
 
     /// Shifting used when the type is DISASM_OPERAND_REGISTER_TYPE
     DisasmShiftMode    shiftMode;                       /// Shifting mode
+    DisasmExtMode      extMode;                         /// Extension mode
     int32_t            shiftAmount;                     /// Shifting amount (if not shifted by a register)
     int32_t            shiftByReg;                      /// Shifting register
 

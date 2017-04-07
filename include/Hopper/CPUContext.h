@@ -98,10 +98,14 @@
 - (void)performProcedureAnalysis:(NSObject<HPProcedure> *)procedure basicBlock:(NSObject<HPBasicBlock> *)basicBlock disasm:(DisasmStruct *)disasm;
 - (void)updateProcedureAnalysis:(DisasmStruct *)disasm;
 
-/// Return YES if the provided DisasmStruct represents an instruction that cand directly reference a memory address.
+/// Return YES if the provided DisasmStruct represents an instruction that can directly reference a memory address.
 /// Ususally, this methods returns YES. This is used by the ARM plugin to avoid false references on "MOVW" instruction
 /// for instance.
 - (BOOL)instructionCanBeUsedToExtractDirectMemoryReferences:(DisasmStruct *)disasmStruct;
+
+/// Return YES if the instruction is used to load an address, but will not read, or write at this address.
+/// Example: the "LEA" x86 instruction.
+- (BOOL)instructionOnlyLoadsAddress:(DisasmStruct *)disasmStruct;
 
 /// Return YES if the instruction may be used to build a switch/case statement.
 /// For instance, for the Intel processor, it returns YES for the "JMP reg" and the "JMP [xxx+reg*4]" instructions,
