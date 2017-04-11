@@ -250,6 +250,7 @@ HP_BEGIN_DECL_ENUM(NSUInteger, RegClass) {
     RegClass_ARM_VFP_Double,
     RegClass_ARM_VFP_Quad,
     RegClass_ARM_Media,
+    RegClass_ARM_Special,
 
     RegClass_LastUserClass = MAX_REGISTER_CLASS,
 
@@ -393,12 +394,13 @@ HP_BEGIN_DECL_ENUM(NSUInteger, CallReferenceType) {
 HP_END_DECL_ENUM(CallReferenceType);
 
 // Decompiler
-#define DECOMPILER_DEFAULT_OPTIONS (Decompiler_RemoveDeadCode | Decompiler_RemoveMacros)
+#define DECOMPILER_DEFAULT_OPTIONS (Decompiler_RemoveDeadCode | Decompiler_RemoveMacros | Decompiler_RemoveNops)
 
 HP_BEGIN_DECL_OPTIONS(NSUInteger, DecompilerOptions) {
     Decompiler_None = 0,
     Decompiler_RemoveDeadCode = 1,
-    Decompiler_RemoveMacros = 2
+    Decompiler_RemoveMacros = 2,
+    Decompiler_RemoveNops = 4
 }
 HP_END_DECL_OPTIONS(DecompilerOptions);
 
