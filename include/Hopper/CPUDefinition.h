@@ -19,6 +19,7 @@
 
 /// Build a context for disassembling.
 /// This method should be fast, because it'll be called very often.
+- (Class)cpuContextClass;
 - (NSObject<CPUContext> *)buildCPUContextForFile:(NSObject<HPDisassembledFile> *)file;
 
 /// Returns an array of NSString of CPU families handled by the plugin.

@@ -13,6 +13,10 @@
     NSObject<HPHopperServices> *_services;
 }
 
+- (Class)cpuContextClass {
+    return [M68kCtx class];
+}
+
 - (instancetype)initWithHopperServices:(NSObject<HPHopperServices> *)services {
     if (self = [super init]) {
         _services = services;
