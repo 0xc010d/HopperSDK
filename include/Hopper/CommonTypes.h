@@ -442,6 +442,14 @@ HP_BEGIN_DECL_ENUM(NSInteger, FileSavingStatus) {
 }
 HP_END_DECL_ENUM(FileSavingStatus);
 
+HP_BEGIN_DECL_ENUM(NSUInteger, StreamCompressionType) {
+    Comp_None,
+    Comp_ZLIB,
+    Comp_LZFSE,
+    Comp_LZ4
+}
+HP_END_DECL_ENUM(StreamCompressionType);
+
 // View Modes
 
 HP_BEGIN_DECL_ENUM(NSUInteger, AssemblyViewMode) {
