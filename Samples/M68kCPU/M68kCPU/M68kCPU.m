@@ -9,6 +9,15 @@
 #import "M68kCPU.h"
 #import "M68kCtx.h"
 
+#ifdef LINUX
+#include <endian.h>
+
+void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
+    *(int16_t *) ((uintptr_t) address + offset) = htobe16(data);
+}
+
+#endif
+
 @implementation M68kCPU {
     NSObject<HPHopperServices> *_services;
 }

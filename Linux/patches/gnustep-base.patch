@@ -1,0 +1,578 @@
+diff --git a/Headers/Foundation/NSException.h b/Headers/Foundation/NSException.h
+index efcff21e7..277a83499 100644
+--- a/Headers/Foundation/NSException.h
++++ b/Headers/Foundation/NSException.h
+@@ -59,9 +59,11 @@
+  * implementation of longjmp in mingw-w64  sometimes crashes in msvcrt.dll
+  * but the builtin version provided by gcc seems to work.
+  */
++#ifndef setjmp
+ #define	setjmp(X)	__builtin_setjmp(X)
+ #define	longjmp(X,Y)	__builtin_longjmp(X,Y)
+ #endif
++#endif
+ 
+ #if	defined(__cplusplus)
+ extern "C" {
+diff --git a/Headers/Foundation/NSObjCRuntime.h b/Headers/Foundation/NSObjCRuntime.h
+index b0982d03e..2c00cf604 100644
+--- a/Headers/Foundation/NSObjCRuntime.h
++++ b/Headers/Foundation/NSObjCRuntime.h
+@@ -84,6 +84,20 @@
+ #endif
+ #endif
+ 
++#if defined(__MINGW32__)
++#undef PRIdPTR
++#undef PRIuPTR
++#undef PRIxPTR
++#if defined(__x86_64__)
++#define PRIdPTR "lld"
++#define PRIuPTR "llu"
++#define PRIxPTR "llx"
++#else
++#define PRIdPTR "ld"
++#define PRIuPTR "lu"
++#define PRIxPTR "lx"
++#endif
++#endif
+ 
+ /* These typedefs must be in place before GSObjCRuntime.h is imported.
+  */
+diff --git a/Source/GSArray.m b/Source/GSArray.m
+index 913a625ce..914b9876a 100644
+--- a/Source/GSArray.m
++++ b/Source/GSArray.m
+@@ -365,6 +365,14 @@ static Class	GSInlineArrayClass;
+ 				   objects: (__unsafe_unretained id[])stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   /* For immutable arrays we can return the contents pointer directly. */
+   NSUInteger count = _count - state->state;
+   state->mutationsPtr = (unsigned long *)self;
+@@ -913,6 +921,13 @@ static Class	GSInlineArrayClass;
+ 				   objects: (__unsafe_unretained id[])stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
+   NSInteger count;
+ 
+   /* This is cached in the caller at the start and compared at each
+diff --git a/Source/GSCountedSet.m b/Source/GSCountedSet.m
+index 88f420ced..8f932263e 100644
+--- a/Source/GSCountedSet.m
++++ b/Source/GSCountedSet.m
+@@ -373,6 +373,14 @@
+                                    objects: (id*)stackbuf
+                                      count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)&_version;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (&map, state, stackbuf, len);
+diff --git a/Source/GSDictionary.m b/Source/GSDictionary.m
+index d0543eb2a..4ce01c342 100644
+--- a/Source/GSDictionary.m
++++ b/Source/GSDictionary.m
+@@ -351,6 +351,14 @@ static SEL	objSel;
+ 				   objects: (__unsafe_unretained id[])stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)self;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (&map, state, stackbuf, len);
+@@ -483,6 +491,14 @@ static SEL	objSel;
+ 				   objects: (__unsafe_unretained id[])stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)&_version;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (&map, state, stackbuf, len);
+diff --git a/Source/GSSet.m b/Source/GSSet.m
+index 3e4fd6614..766e88c9d 100644
+--- a/Source/GSSet.m
++++ b/Source/GSSet.m
+@@ -524,6 +524,14 @@ static Class	mutableSetClass;
+                                    objects: (id*)stackbuf
+                                      count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)self;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (&map, state, stackbuf, len);
+@@ -804,6 +812,14 @@ static Class	mutableSetClass;
+                                    objects: (id*)stackbuf
+                                      count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)&_version;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (&map, state, stackbuf, len);
+diff --git a/Source/NSArray.m b/Source/NSArray.m
+index 45e52f672..f81402d0b 100644
+--- a/Source/NSArray.m
++++ b/Source/NSArray.m
+@@ -390,6 +390,14 @@ static SEL	rlSel;
+ 				   objects: (__unsafe_unretained id[])stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   NSInteger count;
+ 
+   /* In a mutable subclass, the mutationsPtr should be set to point to a
+@@ -1208,6 +1216,14 @@ compare(id elem1, id elem2, void* context)
+        * For a search from the left, we'd have the correct index anyways. Check
+        * whether it's equal to the key and return NSNotFound otherwise
+        */
++      if (index >= count) {
++          if (options & NSBinarySearchingInsertionIndex) {
++              return index;
++          }
++          else {
++              return NSNotFound;
++          }
++      }
+       return (NSOrderedSame == CALL_BLOCK(comparator,
+         key, [self objectAtIndex: index]) ? index : NSNotFound);
+     }
+diff --git a/Source/NSConcreteHashTable.m b/Source/NSConcreteHashTable.m
+index 046ca7c11..e8cf68043 100644
+--- a/Source/NSConcreteHashTable.m
++++ b/Source/NSConcreteHashTable.m
+@@ -910,6 +910,14 @@ const NSHashTableCallBacks NSPointerToStructHashCallBacks =
+ 				   objects: (id*)stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)&version;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (self, state, stackbuf, len);
+diff --git a/Source/NSConcreteMapTable.m b/Source/NSConcreteMapTable.m
+index 0f1ab194e..d5d9ee7b2 100644
+--- a/Source/NSConcreteMapTable.m
++++ b/Source/NSConcreteMapTable.m
+@@ -1194,6 +1194,14 @@ const NSMapTableValueCallBacks NSOwnedPointerMapValueCallBacks =
+ 				   objects: (id*)stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   state->mutationsPtr = (unsigned long *)&version;
+   return GSIMapCountByEnumeratingWithStateObjectsCount
+     (self, state, stackbuf, len);
+diff --git a/Source/NSDictionary.m b/Source/NSDictionary.m
+index c120ca015..01ab26370 100644
+--- a/Source/NSDictionary.m
++++ b/Source/NSDictionary.m
+@@ -1225,6 +1225,14 @@ compareIt(id o1, id o2, void* context)
+                                    objects: (__unsafe_unretained id[])stackbuf
+                                      count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   [self subclassResponsibility: _cmd];
+   return 0;
+ }
+@@ -1348,7 +1356,17 @@ compareIt(id o1, id o2, void* context)
+ 
+ - (void) setObject: (id)anObject forKeyedSubscript: (id)aKey
+ {
+-  [self setObject: anObject forKey: aKey];
++  /* From Apple documentation:
++   * object:
++   *   [...]
++   *   Passing nil will cause any object corresponding to aKey to be removed from the dictionary.
++   */
++  if (anObject == nil) {
++    [self removeObjectForKey: aKey];
++  }
++  else {
++    [self setObject: anObject forKey: aKey];
++  }
+ }
+ 
+ /**
+diff --git a/Source/NSEnumerator.m b/Source/NSEnumerator.m
+index a4c352386..da13915a1 100644
+--- a/Source/NSEnumerator.m
++++ b/Source/NSEnumerator.m
+@@ -79,6 +79,14 @@
+ 				   objects: (id*)stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   IMP nextObject = [self methodForSelector: @selector(nextObject)];
+   int i;
+ 
+diff --git a/Source/NSHashTable.m b/Source/NSHashTable.m
+index edf1a8ee5..634f8c0ea 100644
+--- a/Source/NSHashTable.m
++++ b/Source/NSHashTable.m
+@@ -150,6 +150,14 @@ static Class	concreteClass = 0;
+ 				   objects: (id*)stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   return (NSUInteger)[self subclassResponsibility: _cmd];
+ }
+ 
+diff --git a/Source/NSMapTable.m b/Source/NSMapTable.m
+index 26e3d93ec..9a59fa5a8 100644
+--- a/Source/NSMapTable.m
++++ b/Source/NSMapTable.m
+@@ -168,6 +168,14 @@ static Class	concreteClass = 0;
+ 				   objects: (id*)stackbuf
+ 				     count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+   [self subclassResponsibility: _cmd];
+   return (NSUInteger)0;
+ }
+diff --git a/Source/NSObject.m b/Source/NSObject.m
+index a9ae4fab2..ec1c38a52 100644
+--- a/Source/NSObject.m
++++ b/Source/NSObject.m
+@@ -1520,9 +1520,10 @@ static id gs_weak_load(id obj)
+ - (void) doesNotRecognizeSelector: (SEL)aSelector
+ {
+   [NSException raise: NSInvalidArgumentException
+-	      format: @"%s(%s) does not recognize %s",
++	      format: @"%s(%s %p) does not recognize %s",
+ 	       GSClassNameFromObject(self),
+ 	       GSObjCIsInstance(self) ? "instance" : "class",
++         self,
+ 	       aSelector ? sel_getName(aSelector) : "(null)"];
+ }
+ 
+diff --git a/Source/NSScanner.m b/Source/NSScanner.m
+index 0d2f50895..0b8f25dd3 100644
+--- a/Source/NSScanner.m
++++ b/Source/NSScanner.m
+@@ -443,6 +443,90 @@ typedef GSString	*ivars;
+   return YES;
+ }
+ 
++/*
++ * Scan an unsigned int of the given radix into value.
++ * Internal version used by scanRadixUnsignedInt: and scanHexInt: .
++ */
++- (BOOL) scanUnsignedLongLong_: (unsigned long long*)value
++        radix: (NSUInteger)radix
++    gotDigits: (BOOL)gotDigits
++{
++#if defined(LLONG_MAX)
++  unsigned long long  num = 0;
++  unsigned long long  numLimit, digitLimit, digitValue;
++  BOOL    overflow = NO;
++  unsigned int  saveScanLocation = _scanLocation;
++
++  /* Set limits */
++  numLimit = LLONG_MAX / radix;
++  digitLimit = LLONG_MAX % radix;
++
++  /* Process digits */
++  while (_scanLocation < myLength())
++    {
++      unichar digit = myCharacter(_scanLocation);
++
++      switch (digit)
++  {
++    case '0': digitValue = 0; break;
++    case '1': digitValue = 1; break;
++    case '2': digitValue = 2; break;
++    case '3': digitValue = 3; break;
++    case '4': digitValue = 4; break;
++    case '5': digitValue = 5; break;
++    case '6': digitValue = 6; break;
++    case '7': digitValue = 7; break;
++    case '8': digitValue = 8; break;
++    case '9': digitValue = 9; break;
++    case 'a': digitValue = 0xA; break;
++    case 'b': digitValue = 0xB; break;
++    case 'c': digitValue = 0xC; break;
++    case 'd': digitValue = 0xD; break;
++    case 'e': digitValue = 0xE; break;
++    case 'f': digitValue = 0xF; break;
++    case 'A': digitValue = 0xA; break;
++    case 'B': digitValue = 0xB; break;
++    case 'C': digitValue = 0xC; break;
++    case 'D': digitValue = 0xD; break;
++    case 'E': digitValue = 0xE; break;
++    case 'F': digitValue = 0xF; break;
++    default:
++      digitValue = radix;
++      break;
++  }
++      if (digitValue >= radix)
++  break;
++      if (!overflow)
++  {
++    if ((num > numLimit)
++      || ((num == numLimit) && (digitValue > digitLimit)))
++      overflow = YES;
++    else
++      num = num * radix + digitValue;
++  }
++      _scanLocation++;
++      gotDigits = YES;
++    }
++
++  /* Save result */
++  if (!gotDigits)
++    {
++      _scanLocation = saveScanLocation;
++      return NO;
++    }
++  if (value)
++    {
++      if (overflow)
++  *value = LLONG_MAX;
++      else
++  *value = num;
++    }
++  return YES;
++#else
++  return NO;
++#endif
++}
++
+ /**
+  * After initial skipping (if any), this method scans an unsigned
+  * integer placing it in <em>value</em> if that is not null.
+@@ -1271,8 +1355,42 @@ typedef GSString	*ivars;
+ }
+ - (BOOL) scanHexFloat: (float *)result
+ {
+-  return NO;    // FIXME
++  unsigned int saveScanLocation = _scanLocation;
++
++  /* Skip whitespace */
++  if (!skipToNextField())
++    {
++      _scanLocation = saveScanLocation;
++      return NO;
++    }
++
++  if ((_scanLocation < myLength()) && (myCharacter(_scanLocation) == '0'))
++    {
++      _scanLocation++;
++      if (_scanLocation < myLength())
++  {
++    switch (myCharacter(_scanLocation))
++      {
++        case 'x':
++        case 'X':
++    _scanLocation++;  // Scan beyond the 0x prefix
++    break;
++        default:
++    _scanLocation--;  // Scan from the initial digit
++          break;
++      }
++  }
++      else
++  {
++    _scanLocation--;  // Just scan the zero.
++  }
++    }
++  if ([self scanUnsignedLongLong_: result radix: 16 gotDigits: NO])
++    return YES;
++  _scanLocation = saveScanLocation;
++  return NO;
+ }
++
+ - (BOOL) scanInteger: (NSInteger *)value
+ {
+ #if GS_SIZEOF_VOIDP == GS_SIZEOF_INT
+diff --git a/Source/NSSet.m b/Source/NSSet.m
+index ba89e5800..79956478d 100644
+--- a/Source/NSSet.m
++++ b/Source/NSSet.m
+@@ -995,6 +995,14 @@ static Class NSMutableSet_concrete_class;
+                                    objects: (id*)stackbuf
+                                      count: (NSUInteger)len
+ {
++#if defined(__MINGW32__) && defined(__x86_64__)
++  // Fix an issue when compiling with Clang.
++  // For generated countByEnumeratingWithState:... from foreach statements,
++  // the len is passed on the stack (fifth argument) as a 32bit integer
++  // but we read a whole 64bit NSUInteger here.
++  len &= 0xFFFFFFFF;
++#endif
++
+     [self subclassResponsibility: _cmd];
+     return 0;
+ }
+diff --git a/Headers/GNUstepBase/GSIMap.h b/Headers/GNUstepBase/GSIMap.h
+index 47fc8d3..da545b7 100644
+--- a/Headers/GNUstepBase/GSIMap.h
++++ b/Headers/GNUstepBase/GSIMap.h
+@@ -404,6 +404,7 @@ GSIMapPickBucket(unsigned hash, GSIMapBucket buckets, uintptr_t bucketCount)
+ GS_STATIC_INLINE GSIMapBucket
+ GSIMapBucketForKey(GSIMapTable map, GSIMapKey key)
+ {
++  if (map->bucketCount == 1) return map->buckets;
+   return GSIMapPickBucket(GSI_MAP_HASH(map, key),
+     map->buckets, map->bucketCount);
+ }
+diff --git a/Source/GSAttributedString.m b/Source/GSAttributedString.m
+index 23d9f60..a900bc5 100644
+--- a/Source/GSAttributedString.m
++++ b/Source/GSAttributedString.m
+@@ -150,6 +150,13 @@ static IMP   unlockImp;
+ static NSDictionary*
+ cacheAttributes(NSDictionary *attrs)
+ {
++  [attrs retain];
++  return attrs;
++}
++
++static NSDictionary*
++old_cacheAttributes(NSDictionary *attrs)
++{
+   if (nil != attrs)
+     {
+       GSIMapNode node;
+@@ -183,6 +190,12 @@ cacheAttributes(NSDictionary *attrs)
+ static void
+ unCacheAttributes(NSDictionary *attrs)
+ {
++  [attrs release];
++}
++
++static void
++old_unCacheAttributes(NSDictionary *attrs)
++{
+   if (nil != attrs)
+     {
+       GSIMapBucket  bucket;
+diff --git a/Source/GSString.m b/Source/GSString.m
+index fd82474..e721b8e 100644
+--- a/Source/GSString.m
++++ b/Source/GSString.m
+@@ -5985,8 +5985,28 @@ literalIsEqual(NXConstantString *self, id anObject)
+ /* Must match the implementation in NSString
+  * To avoid allocating memory, we build the hash incrementally.
+  */
++
+ - (NSUInteger) hash
+ {
++ // static int cnt = 0;
++ // static int miss = 0;
++ static NSUInteger hashs[65536];
++ static uintptr_t pointers[65536];
++
++ uintptr_t ptr = (uintptr_t) self;
++ // cnt++;
++ int index = (ptr >> 3) & 65535;
++ if (pointers[index] != ptr) {
++   hashs[index] = [self _hash];
++   pointers[index] = ptr;
++   // miss++;
++ }
++ // printf("%d/%d %s\n", cnt, miss, nxcsptr);
++ return hashs[index];
++}
++
++- (NSUInteger) _hash
++{
+   if (nxcslen > 0)
+     {
+       uint32_t  s0 = 0;

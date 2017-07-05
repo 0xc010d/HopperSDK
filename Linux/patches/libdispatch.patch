@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 1bf19fc..6d94fb5 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -277,7 +277,7 @@ configure_file("config/config.h.cmake.in"
+ ################################################################################
+ 
+ add_subdirectory(src)
+-add_subdirectory(testing)
++#add_subdirectory(testing)
+ 
+ # Install man pages
+ add_subdirectory(man)

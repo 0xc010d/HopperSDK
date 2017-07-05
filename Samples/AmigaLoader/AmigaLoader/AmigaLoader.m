@@ -8,6 +8,23 @@
 
 #import "AmigaLoader.h"
 
+#ifdef LINUX
+#include <endian.h>
+
+int16_t OSReadBigInt16(const void *address, uintptr_t offset) {
+    return be16toh(*(int16_t *) ((uintptr_t) address + offset));
+}
+
+int32_t OSReadBigInt32(const void *address, uintptr_t offset) {
+    return be32toh(*(int32_t *) ((uintptr_t) address + offset));
+}
+
+void OSWriteBigInt32(void *address, uintptr_t offset, int32_t data) {
+    *(int32_t *) ((uintptr_t) address + offset) = htobe32(data);
+}
+
+#endif
+
 typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     HUNK_UNIT = 999,
     HUNK_NAME = 1000,
