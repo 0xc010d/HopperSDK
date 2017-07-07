@@ -561,7 +561,8 @@ static inline int regIndexFromType(uint64_t type) {
     NSObject<HPASMLine> *line = [services blankASMLine];
     NSString *mnemonic = @(disasm->instruction.mnemonic);
     if (file.userRequestedSyntaxIndex) mnemonic = [mnemonic uppercaseString];
-    [line appendMnemonic:mnemonic];
+    BOOL isJump = (disasm->instruction.branchType != DISASM_BRANCH_NONE);
+    [line appendMnemonic:mnemonic isJump:isJump];
     return line;
 }
 

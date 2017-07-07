@@ -134,6 +134,10 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
     return NO;
 }
 
+- (BOOL)registerHasSideEffectForIndex:(NSUInteger)reg andClass:(RegClass)reg_class {
+    return reg_class == RegClass_CPUState;
+}
+
 - (NSString *)lowercaseStringForRegister:(NSUInteger)reg ofClass:(RegClass)reg_class {
     switch (reg_class) {
         case RegClass_CPUState:
