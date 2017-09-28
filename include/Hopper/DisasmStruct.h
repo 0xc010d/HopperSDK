@@ -236,6 +236,7 @@ typedef struct {
     uint8_t lockPrefix;
     uint8_t repnePrefix;
     uint8_t repPrefix;
+    uint8_t bndPrefix;
     uint8_t segmentOverride;
 } DisasmPrefix;
 
