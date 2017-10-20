@@ -321,7 +321,7 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
 
                 if (baseIsPC && hasDisp && !hasIndex) {
                     disasm->instruction.pcRegisterValue -= 2;
-                    disasm->instruction.addressValue = disasm->instruction.pcRegisterValue + op->mem.disp;
+                    disasm->instruction.addressValue = disasm->instruction.pcRegisterValue + hop_op->memory.displacement;
                 }
                 
                 if (!registerIndirect && !hasIndex && !baseIsPC) {
@@ -406,6 +406,10 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
         }
 
         switch(insn->id) {
+            case M68K_INS_JMP:
+                disasm->instruction.branchType = DISASM_BRANCH_JMP;
+                break;
+
             case M68K_INS_JSR:
             case M68K_INS_BSR:
                 disasm->instruction.branchType = DISASM_BRANCH_CALL;
@@ -779,7 +783,7 @@ static inline int regIndexFromType(uint64_t type) {
 }
 
 - (BOOL)instructionOnlyLoadsAddress:(DisasmStruct *)disasmStruct {
-    return strcmp(disasmStruct->instruction.mnemonic, "lea") == 0;
+    return strncmp(disasmStruct->instruction.mnemonic, "lea", 3) == 0;
 }
 
 - (BOOL)instructionMayBeASwitchStatement:(DisasmStruct *)disasmStruct {
