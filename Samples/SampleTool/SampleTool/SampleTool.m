@@ -83,7 +83,7 @@
 }
 
 - (NSString *)pluginCopyright {
-    return @"©2014 - Cryptic Apps SARL";
+    return @"© Cryptic Apps SARL";
 }
 
 - (NSString *)pluginVersion {

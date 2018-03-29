@@ -84,7 +84,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
 }
 
 - (NSString *)pluginCopyright {
-    return @"©2014 - Cryptic Apps SARL";
+    return @"© Cryptic Apps SARL";
 }
 
 - (NSString *)pluginVersion {

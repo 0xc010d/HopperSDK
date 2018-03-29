@@ -62,7 +62,7 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
 }
 
 - (NSString *)pluginCopyright {
-    return @"©2014 - Cryptic Apps SARL";
+    return @"© Cryptic Apps SARL";
 }
 
 - (NSArray *)cpuFamilies {

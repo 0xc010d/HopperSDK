@@ -232,4 +232,40 @@ HP_BEGIN_DECL_ENUM(NSUInteger, CallReferenceType) {
 }
 HP_END_DECL_ENUM(CallReferenceType);
 
+// Signatures
+
+HP_BEGIN_DECL_ENUM(uint8_t, SignatureCreationReason) {
+    SCReason_None,
+    SCReason_Unknown,                   // Unknown reason
+    SCReason_GuessedFromDecompilation,  // Signature built during the decompilation process
+    SCReason_GuessedFromDataFlow,       // Signature built from the data flow analysis.
+    SCReason_Called,                    // Signature built from a method call
+    SCReason_Database,                  // A known signature, from the embedded database
+    SCReason_Demangling,                // From demangling, or decoding a signature string
+    SCReason_User                       // Defined by the user
+}
+HP_END_DECL_ENUM(SignatureCreationReason);
+
+// Calling Conventions
+
+HP_BEGIN_DECL_ENUM(NSUInteger, CallingConvention) {
+    CallingConvention_default = 0,
+    
+    CallingConvention_cdecl = 1,
+    CallingConvention_stdcall,
+    CallingConvention_fastcall,
+    CallingConvention_fastcall_borland,
+    CallingConvention_thiscall,
+    CallingConvention_watcom,
+    CallingConvention_pascal,
+    CallingConvention_clrcall,
+    
+    CallingConvention_AAPCS = 10,
+    CallingConvention_AAPCS_VFP,
+    
+    CallingConvention_X86_64SysV = 20,
+    CallingConvention_X86_64Win64
+}
+HP_END_DECL_ENUM(CallingConvention);
+
 #endif
