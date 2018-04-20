@@ -786,6 +786,10 @@ static inline int regIndexFromType(uint64_t type) {
     return strncmp(disasmStruct->instruction.mnemonic, "lea", 3) == 0;
 }
 
+- (BOOL)instructionManipulatesFloat:(DisasmStruct *)disasmStruct {
+    return NO;
+}
+
 - (BOOL)instructionMayBeASwitchStatement:(DisasmStruct *)disasmStruct {
     return NO;
 }
