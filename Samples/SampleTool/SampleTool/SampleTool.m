@@ -86,6 +86,10 @@
     return @"© Cryptic Apps SARL";
 }
 
+- (NSString *)commandLineIdentifier {
+    return @"DummyTool";
+}
+
 - (NSString *)pluginVersion {
     return @"0.0.2";
 }
