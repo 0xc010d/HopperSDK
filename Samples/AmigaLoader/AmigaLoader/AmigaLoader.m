@@ -56,6 +56,10 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     NSObject<HPHopperServices> *_services;
 }
 
++ (int)sdkVersion {
+    return HOPPER_CURRENT_SDK_VERSION;
+}
+
 - (instancetype)initWithHopperServices:(NSObject<HPHopperServices> *)services {
     if (self = [super init]) {
         _services = services;

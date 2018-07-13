@@ -55,6 +55,10 @@
     [doc logStringMessage:@"Function 3 triggered"];
 }
 
++ (int)sdkVersion {
+    return HOPPER_CURRENT_SDK_VERSION;
+}
+
 - (instancetype)initWithHopperServices:(NSObject <HPHopperServices> *)services {
     if (self = [super init]) {
         _services = services;

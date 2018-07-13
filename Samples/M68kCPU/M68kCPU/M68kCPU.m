@@ -26,6 +26,10 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
     return [M68kCtx class];
 }
 
++ (int)sdkVersion {
+    return HOPPER_CURRENT_SDK_VERSION;
+}
+
 - (instancetype)initWithHopperServices:(NSObject<HPHopperServices> *)services {
     if (self = [super init]) {
         _services = services;
