@@ -1,0 +1,87 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 16b42a7..08fe203 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -4,6 +4,8 @@ cmake_minimum_required(VERSION 2.8)
+ project(libobjc)
+ enable_language(ASM)
+ 
++INCLUDE (CheckCXXSourceCompiles)
++
+ set(CMAKE_C_FLAGS_DEBUG "-g -O0 -fno-inline ${CMAKE_C_FLAGS_DEBUG}")
+ set(CMAKE_C_FLAGS_RELEASE "-O3 ${CMAKE_C_FLAGS_RELEASE}")
+ set(CMAKE_C_FLAGS "-std=gnu99 ${CMAKE_C_FLAGS}")
+@@ -346,3 +348,16 @@ if (TESTS)
+ 	add_subdirectory(Test)
+ endif (TESTS)
+ 
++CHECK_CXX_SOURCE_COMPILES("
++	#include <stdlib.h>
++	extern \"C\" {
++	__attribute__((weak))
++	void *__cxa_allocate_exception(size_t thrown_size) noexcept;
++	}
++	#include <exception>
++	int main() { return 0; }" CXA_ALLOCATE_EXCEPTION_NOEXCEPT_COMPILES)
++if (CXA_ALLOCATE_EXCEPTION_NOEXCEPT_COMPILES)
++	add_definitions(-DCXA_ALLOCATE_EXCEPTION_SPECIFIER=noexcept)
++else ()
++	add_definitions(-DCXA_ALLOCATE_EXCEPTION_SPECIFIER=)
++endif ()
+diff --git a/objcxx_eh.cc b/objcxx_eh.cc
+index 1837ae6..edb48f3 100644
+--- a/objcxx_eh.cc
++++ b/objcxx_eh.cc
+@@ -2,12 +2,9 @@
+ #include <stdio.h>
+ #include "dwarf_eh.h"
+ #include "objcxx_eh.h"
+-#include <exception>
+ 
+-extern "C" 
+-{
+ #include "objc/runtime.h"
+-};
++
+ namespace __cxxabiv1
+ {
+ 	struct __class_type_info;
+@@ -15,6 +12,14 @@ namespace __cxxabiv1
+ 
+ using __cxxabiv1::__class_type_info;
+ 
++// Define some C++ ABI types here, rather than including them.  This prevents
++// conflicts with the libstdc++ headers, which expose only a subset of the
++// type_info class (the part required for standards compliance, not the
++// implementation details).
++
++typedef void (*unexpected_handler)();
++typedef void (*terminate_handler)();
++
+ namespace std
+ {
+ 	/**
+diff --git a/objcxx_eh.h b/objcxx_eh.h
+index 987479c..024283a 100644
+--- a/objcxx_eh.h
++++ b/objcxx_eh.h
+@@ -5,8 +5,18 @@ extern "C" {
+  * Allocates a C++ exception.  This function is part of the Itanium C++ ABI and
+  * is provided externally.
+  */
++/*
++ * Note: Recent versions of libsupc++ already provide a prototype for
++ * __cxa__allocate_exception(). Since the libsupc++ version is defined with
++ * _GLIBCXX_NOTHROW, clang gives a type mismatch error.
++ */
++#ifndef __cplusplus
++#undef CXA_ALLOCATE_EXCEPTION_SPECIFIER
++#define CXA_ALLOCATE_EXCEPTION_SPECIFIER
++#endif
+ __attribute__((weak))
+-void *__cxa_allocate_exception(size_t thrown_size);
++void *__cxa_allocate_exception(size_t thrown_size) CXA_ALLOCATE_EXCEPTION_SPECIFIER;
++
+ /**
+  * Initialises an exception object returned by __cxa_allocate_exception() for
+  * storing an Objective-C object.  The return value is the location of the

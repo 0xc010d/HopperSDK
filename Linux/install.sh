@@ -63,6 +63,7 @@ echo ""
 
 cd gnustep-libobjc2
 git checkout $GNUSTEP_LIBOBJC2_REV
+patch -p1 <../../patches/libobjc2.patch || exit 1
 rm -rf build ; mkdir build ; cd build
 cmake .. -DCMAKE_INSTALL_PREFIX="$DEST" -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_ASM_COMPILER=$CC -DTESTS=off -DCMAKE_BUILD_TYPE=Release
 make -j$JOBS || exit 1
