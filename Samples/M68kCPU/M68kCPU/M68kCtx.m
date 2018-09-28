@@ -74,8 +74,12 @@
 }
 
 - (NSUInteger)detectedPaddingLengthAt:(Address)address {
+    if (![_file hasMappedDataAt:address]) {
+        return 0;
+    }
+
     NSUInteger len = 0;
-    while ([_file readUInt16AtVirtualAddress:address] == 0) {
+    while ([_file hasMappedDataAt:address] && [_file readUInt16AtVirtualAddress:address] == 0) {
         address += 2;
         len += 2;
     }
