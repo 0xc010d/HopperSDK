@@ -91,6 +91,11 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
     return 0;
 }
 
+- (int)integerWidthInBitsForCPUFamily:(NSString *)family andSubFamily:(NSString *)subFamily {
+    if ([family isEqualToString:@"motorola"] && [subFamily isEqualToString:@"68000"]) return 32;
+    return 0;
+}
+
 - (CPUEndianess)endianess {
     return CPUEndianess_Big;
 }

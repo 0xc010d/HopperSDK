@@ -39,6 +39,8 @@ typedef void (^FileLoadingCallbackInfo)(NSString *desc, float progress);
 // Methods essentially used by Loader plugin
 - (NSUInteger)addressSpaceWidthInBits;
 - (void)setAddressSpaceWidthInBits:(NSUInteger)bits;
+- (NSUInteger)integerWidthInBits;
+- (void)setIntegerWidthInBits:(NSUInteger)bits;
 
 - (BOOL)is32Bits;
 - (BOOL)is64Bits;

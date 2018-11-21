@@ -108,7 +108,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
 }
 
 // Returns an array of DetectedFileType objects.
-- (NSArray *)detectedTypesForData:(NSData *)data {
+- (NSArray *)detectedTypesForData:(NSData *)data ofFileNamed:(NSString *)filename {
     if ([data length] < 4) return @[];
 
     const void *bytes = (const void *)[data bytes];
@@ -245,7 +245,8 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
 
     file.cpuFamily = @"motorola";
     file.cpuSubFamily = @"68000";
-    [file setAddressSpaceWidthInBits:32];
+    file.addressSpaceWidthInBits = 32;
+    file.integerWidthInBits = 32;
 
     [file addEntryPoint:firstAddress];
 
@@ -260,7 +261,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return DIS_NotSupported;
 }
 
-- (NSData *)extractFromData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType returnAdjustOffset:(uint64_t *)adjustOffset {
+- (NSData *)extractFromData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType returnAdjustOffset:(uint64_t *)adjustOffset returnAdjustFilename:(NSString *__autoreleasing *)newFilename {
     return nil;
 }
 

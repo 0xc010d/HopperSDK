@@ -21,7 +21,7 @@
 - (BOOL)canLoadDebugFiles;
 
 /// Returns an array of DetectedFileType objects.
-- (NSArray<NSObject<HPDetectedFileType> *> *)detectedTypesForData:(NSData *)data;
+- (NSArray<NSObject<HPDetectedFileType> *> *)detectedTypesForData:(NSData *)data ofFileNamed:(NSString *)filename;
 
 /// Load a file.
 /// The plugin should create HPSegment and HPSection objects.
@@ -39,6 +39,7 @@
 /// In the case of a "composite loader", extract the NSData object of the selected file.
 - (NSData *)extractFromData:(NSData *)data
       usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType
-         returnAdjustOffset:(uint64_t *)adjustOffset;
+         returnAdjustOffset:(uint64_t *)adjustOffset
+       returnAdjustFilename:(NSString **)newFilename;
 
 @end

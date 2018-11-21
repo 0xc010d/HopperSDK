@@ -28,6 +28,7 @@
 - (NSArray<NSString *> *)cpuSubFamiliesForFamily:(NSString *)family;
 /// Returns 32 or 64, according to the family and subFamily arguments.
 - (int)addressSpaceWidthInBitsForCPUFamily:(NSString *)family andSubFamily:(NSString *)subFamily;
+- (int)integerWidthInBitsForCPUFamily:(NSString *)family andSubFamily:(NSString *)subFamily;
 
 /// Default endianess of the CPU.
 - (CPUEndianess)endianess;
