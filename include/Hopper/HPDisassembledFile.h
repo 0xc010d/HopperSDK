@@ -48,7 +48,9 @@ typedef void (^FileLoadingCallbackInfo)(NSString *desc, float progress);
 - (Address)fileBaseAddress;
 
 - (void)addEntryPoint:(Address)address;
+- (void)addEntryPoint:(Address)address withCPUMode:(uint8_t)cpuMode;
 - (void)addPotentialProcedure:(Address)address;
+- (void)addPotentialProcedure:(Address)address withCPUMode:(uint8_t)cpuMode;
 - (Address)firstEntryPoint;
 - (NSArray<NSNumber *> *)entryPointAddresses;
 
