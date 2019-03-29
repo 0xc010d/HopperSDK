@@ -315,7 +315,7 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
                     uint64_t mask = DISASM_BUILD_REGISTER_INDEX_MASK(capstoneRegisterToRegIndex(op->mem.index_reg));
                     hop_op->type |= DISASM_BUILD_REGISTER_CLS_MASK(idxCls);
                     hop_op->type |= mask;
-                    hop_op->memory.baseRegistersMask = mask;
+                    hop_op->memory.indexRegistersMask = mask;
                     hop_op->userData[DISASM_M68K_OP_USER_INDEX_REG_CLASS] = idxCls;
 
                     hop_op->memory.scale = op->mem.scale;
@@ -578,7 +578,7 @@ static inline int regIndexFromType(uint64_t type) {
     if (operandIndex >= DISASM_MAX_OPERANDS) return nil;
     DisasmOperand *operand = disasm->operand + operandIndex;
     if (operand->type == DISASM_OPERAND_NO_OPERAND) return nil;
-
+    
     // Get the format requested by the user
     ArgFormat format = [file formatForArgument:operandIndex atVirtualAddress:disasm->virtualAddr];
 
