@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		074686A222733F1E002554E4 /* SampleTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074686A122733F1E002554E4 /* SampleTool.swift */; };
 		07AC766718C8CB9A007D5414 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AC766618C8CB9A007D5414 /* CoreFoundation.framework */; };
 		07AC766D18C8CB9A007D5414 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07AC766B18C8CB9A007D5414 /* InfoPlist.strings */; };
-		07AC767618C8CBC8007D5414 /* SampleTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 07AC767518C8CBC8007D5414 /* SampleTool.m */; };
 		07AC767918C8CED6007D5414 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07AC767818C8CED6007D5414 /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		074686A022733F1E002554E4 /* SampleTool-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleTool-Bridging-Header.h"; sourceTree = "<group>"; };
+		074686A122733F1E002554E4 /* SampleTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleTool.swift; sourceTree = "<group>"; };
 		07AC766318C8CB9A007D5414 /* SampleTool.hopperTool */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleTool.hopperTool; sourceTree = BUILT_PRODUCTS_DIR; };
 		07AC766618C8CB9A007D5414 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		07AC766A18C8CB9A007D5414 /* SampleTool-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SampleTool-Info.plist"; sourceTree = "<group>"; };
 		07AC766C18C8CB9A007D5414 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		07AC766E18C8CB9A007D5414 /* SampleTool-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleTool-Prefix.pch"; sourceTree = "<group>"; };
-		07AC767418C8CBC8007D5414 /* SampleTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleTool.h; sourceTree = "<group>"; };
-		07AC767518C8CBC8007D5414 /* SampleTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleTool.m; sourceTree = "<group>"; };
 		07AC767818C8CED6007D5414 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -67,8 +67,8 @@
 		07AC766818C8CB9A007D5414 /* SampleTool */ = {
 			isa = PBXGroup;
 			children = (
-				07AC767418C8CBC8007D5414 /* SampleTool.h */,
-				07AC767518C8CBC8007D5414 /* SampleTool.m */,
+				074686A122733F1E002554E4 /* SampleTool.swift */,
+				074686A022733F1E002554E4 /* SampleTool-Bridging-Header.h */,
 			);
 			path = SampleTool;
 			sourceTree = "<group>";
@@ -111,15 +111,21 @@
 		07AC765B18C8CB9A007D5414 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "Cryptic Apps";
+				TargetAttributes = {
+					07AC766218C8CB9A007D5414 = {
+						LastSwiftMigration = 1020;
+					};
+				};
 			};
 			buildConfigurationList = 07AC765E18C8CB9A007D5414 /* Build configuration list for PBXProject "SampleTool" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 07AC765A18C8CB9A007D5414;
 			productRefGroup = 07AC766418C8CB9A007D5414 /* Products */;
@@ -164,7 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07AC767618C8CBC8007D5414 /* SampleTool.m in Sources */,
+				074686A222733F1E002554E4 /* SampleTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +192,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -237,6 +244,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -274,12 +282,14 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
 		07AC767218C8CB9A007D5414 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SampleTool/SampleTool-Prefix.pch";
@@ -290,8 +300,13 @@
 				);
 				INFOPLIST_FILE = "SampleTool/SampleTool-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/v4/Tools";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cryptic-apps.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SampleTool/SampleTool-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = hopperTool;
 			};
 			name = Debug;
@@ -299,6 +314,7 @@
 		07AC767318C8CB9A007D5414 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SampleTool/SampleTool-Prefix.pch";
@@ -309,8 +325,12 @@
 				);
 				INFOPLIST_FILE = "SampleTool/SampleTool-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Application Support/Hopper/PlugIns/v4/Tools";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cryptic-apps.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SampleTool/SampleTool-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = hopperTool;
 			};
 			name = Release;

@@ -45,7 +45,7 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
     return [[M68kCtx alloc] initWithCPU:self andFile:file];
 }
 
-- (HopperUUID *)pluginUUID {
+- (NSObject<HPHopperUUID> *)pluginUUID {
     return [_services UUIDWithString:@"82196c67-cf5e-441f-a7b9-7d2ca5e101a4"];
 }
 

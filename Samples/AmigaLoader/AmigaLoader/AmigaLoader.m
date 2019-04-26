@@ -67,7 +67,7 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return self;
 }
 
-- (HopperUUID *)pluginUUID {
+- (NSObject<HPHopperUUID> *)pluginUUID {
     return [_services UUIDWithString:@"b92d6db3-1a89-4c48-aff2-2d9e4343cb52"];
 }
 

@@ -112,10 +112,11 @@
 			};
 			buildConfigurationList = 076B713418C4D07F00DE7FD0 /* Build configuration list for PBXProject "AmigaLoader" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 076B713018C4D07F00DE7FD0;
 			productRefGroup = 076B713A18C4D07F00DE7FD0 /* Products */;
