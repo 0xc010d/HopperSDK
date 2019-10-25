@@ -95,8 +95,8 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return @"0.0.1";
 }
 
-- (NSString *)commandLineIdentifier {
-    return @"Amiga";
+- (NSArray<NSString *> *)commandLineIdentifiers {
+    return @[@"Amiga"];
 }
 
 - (CPUEndianess)endianess {

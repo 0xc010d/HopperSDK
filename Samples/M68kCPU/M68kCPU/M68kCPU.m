@@ -73,8 +73,8 @@ void OSWriteBigInt16(void *address, uintptr_t offset, int16_t data) {
     return @[@"motorola"];
 }
 
-- (NSString *)commandLineIdentifier {
-    return @"motorola";
+- (NSArray<NSString *> *)commandLineIdentifiers {
+    return @[@"motorola"];
 }
 
 - (NSString *)pluginVersion {

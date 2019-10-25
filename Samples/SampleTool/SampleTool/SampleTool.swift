@@ -39,8 +39,8 @@ class SwiftSampleTool : NSObject, HopperTool {
         return "© Cryptic Apps SARL"
     }
     
-    func commandLineIdentifier() -> String {
-        return "DummyTool"
+    func commandLineIdentifiers() -> [String] {
+        return ["DummyTool"]
     }
     
     func pluginVersion() -> String {

@@ -166,7 +166,7 @@ static inline uint32_t capstoneRegisterToRegIndex(m68k_reg reg) {
     };
 
     if ((int) reg >= 0 && (int)reg < M68K_REG_ENDING) {
-        return idx[reg];
+        return (uint32_t) idx[reg];
     }
     
     return (uint32_t) -1;
