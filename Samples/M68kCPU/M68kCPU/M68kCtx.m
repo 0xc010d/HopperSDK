@@ -321,7 +321,14 @@ static inline RegClass capstoneRegisterToRegClass(m68k_reg reg) {
                     hop_op->memory.scale = op->mem.scale;
                 }
 
-                if (hasDisp) hop_op->memory.displacement = (int16_t) op->mem.disp;
+                if (hasDisp) {
+                    if (op->mem.in_disp) {
+                        hop_op->memory.displacement = (int16_t) op->mem.in_disp;
+                    }
+                    else {
+                        hop_op->memory.displacement = (int16_t) op->mem.disp;
+                    }
+                }
 
                 if (baseIsPC && hasDisp && !hasIndex) {
                     disasm->instruction.pcRegisterValue -= 2;
