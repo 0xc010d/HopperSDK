@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1200"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,17 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "07E06B6B1538C25600C8D722"
-            BuildableName = "Hopper Disassembler v3.app"
-            BlueprintName = "Hopper Disassembler"
-            ReferencedContainer = "container:../../Hopper.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -60,8 +49,6 @@
             ReferencedContainer = "container:M68kCPU/M68kCPU.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

@@ -261,8 +261,16 @@ typedef NS_ENUM(uint32_t, HUNK_TYPE) {
     return DIS_NotSupported;
 }
 
-- (NSData *)extractFromData:(NSData *)data usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType returnAdjustOffset:(uint64_t *)adjustOffset returnAdjustFilename:(NSString *__autoreleasing *)newFilename {
+- (NSData *)extractFromData:(NSData *)data
+      usingDetectedFileType:(NSObject<HPDetectedFileType> *)fileType
+           originalFileName:(NSString *)filename
+         returnAdjustOffset:(uint64_t *)adjustOffset
+       returnAdjustFilename:(NSString *__autoreleasing *)newFilename {
     return nil;
+}
+
+- (void)setupFile:(nonnull NSObject<HPDisassembledFile> *)file afterExtractionOf:(nonnull NSString *)filename type:(nonnull NSObject<HPDetectedFileType> *)fileType {
+
 }
 
 @end
